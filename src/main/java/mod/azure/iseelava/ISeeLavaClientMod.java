@@ -21,11 +21,11 @@ public class ISeeLavaClientMod implements ClientModInitializer {
 		BlockRenderLayerMap.putFluid(Fluids.FLOWING_LAVA, RenderType.translucent());
 
 		FabricLoader.getInstance().getModContainer(ID).ifPresent(container -> {
-			ResourceManagerHelper.registerBuiltinResourcePack(asId("translucent_lava"), container, ResourcePackActivationType.DEFAULT_ENABLED);
+			ResourceManagerHelper.registerBuiltinResourcePack(modResource("translucent_lava"), container, ResourcePackActivationType.DEFAULT_ENABLED);
 		});
 	}
 
-	public static ResourceLocation asId(String path) {
+	public static ResourceLocation modResource(String path) {
 		return new ResourceLocation(ID, path);
 	}
 }
