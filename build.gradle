@@ -9,8 +9,8 @@ import com.modrinth.minotaur.dependencies.ModDependency
 import groovy.json.JsonSlurper
 import groovy.json.JsonOutput
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = JavaVersion.VERSION_21
+targetCompatibility = JavaVersion.VERSION_21
 
 base {
     archivesName = project.modName
@@ -54,7 +54,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 17
+    it.options.release = 21
 }
 
 jar {
@@ -76,7 +76,7 @@ if (file('key.properties').exists()) {
         mainFile.addRequirement "fabric-api"
         mainFile.changelog = file("CHANGELOG.txt")
         mainFile.addModLoader("Fabric", "Quilt")
-        mainFile.addJavaVersion("Java 17")
+        mainFile.addJavaVersion("Java 21")
         mainFile.addGameVersion("1.21.7")
     }
 }
