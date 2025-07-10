@@ -9,8 +9,8 @@ import com.modrinth.minotaur.dependencies.ModDependency
 import groovy.json.JsonSlurper
 import groovy.json.JsonOutput
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = JavaVersion.VERSION_21
+targetCompatibility = JavaVersion.VERSION_21
 
 base {
     archivesName = project.modNameConnector
@@ -54,7 +54,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 17
+    it.options.release = 21
 }
 
 jar {
@@ -78,7 +78,7 @@ if (file('key.properties').exists()) {
         	changelog = file('CHANGELOG.txt')
         	addGameVersion("1.21.7")
 			addGameVersion("Forge")
-        	addGameVersion("Java 17")
+        	addGameVersion("Java 21")
 
         	relations {
             	requiredDependency 'forgified-fabric-api'  
