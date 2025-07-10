@@ -3,7 +3,7 @@ package mod.azure.iseelava;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -17,8 +17,8 @@ public class ISeeLavaClientMod implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		BlockRenderLayerMap.INSTANCE.putFluid(Fluids.LAVA, RenderType.translucent());
-		BlockRenderLayerMap.INSTANCE.putFluid(Fluids.FLOWING_LAVA, RenderType.translucent());
+		BlockRenderLayerMap.putFluid(Fluids.LAVA, RenderType.translucent());
+		BlockRenderLayerMap.putFluid(Fluids.FLOWING_LAVA, RenderType.translucent());
 
 		FabricLoader.getInstance().getModContainer(ID).ifPresent(container -> {
 			ResourceManagerHelper.registerBuiltinResourcePack(asId("translucent_lava"), container, ResourcePackActivationType.DEFAULT_ENABLED);
