@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.10.1'
+    id 'fabric-loom' version '1.11.4'
     id 'maven-publish'
     // id 'net.darkhax.curseforgegradle' version '1.+'
     // id "com.modrinth.minotaur" version "2.+"
@@ -30,13 +30,14 @@ repositories {
 
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraftVersion}"
-        mappings loom.officialMojangMappings()
+        //mappings loom.officialMojangMappings()
+	mappings "net.fabricmc:yarn:1.21.7+build.1:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loaderVersion}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabricVersion}"
 }
 
 loom {
-    splitEnvironmentSourceSets()
+    // splitEnvironmentSourceSets()
     // Set the path to your Access Widener file if you have one.
     // This allows your mod to access normally private fields/methods in Minecraft.
     def aw = project.file("src/main/resources/iseelava.accesswidener")
