@@ -7,8 +7,8 @@ import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
-// import net.minecraft.client.renderer.RenderType;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayer;
+import net.minecraft.client.renderer.RenderType;
+// import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluids;
 
@@ -18,7 +18,7 @@ public class ISeeLavaClientMod implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		BlockRenderLayerMap.putFluid(Fluids.LAVA, BlockRenderLayer.TRANSLUCENT);
+		BlockRenderLayerMap.putFluid(Fluids.LAVA, RenderType.translucent());
 		BlockRenderLayerMap.putFluid(Fluids.FLOWING_LAVA, BlockRenderLayer.TRANSLUCENT);
 
 		FabricLoader.getInstance().getModContainer(ID).ifPresent(container -> {
