@@ -29,7 +29,11 @@ public class ISeeLavaClientMod implements ClientModInitializer {
 		});
 	}
 
-	public static ResourceLocation modResource(String path) {
-		return ResourceLocation.fromNamespaceAndPath(ID, path);
+//	public static ResourceLocation modResource(String path) {
+//		return ResourceLocation.fromNamespaceAndPath(ID, path);
+//	}
+
+		public static Identifier modResource(String path) {
+		return Identifier.fromNamespaceAndPath(ID, path);
 	}
 }
