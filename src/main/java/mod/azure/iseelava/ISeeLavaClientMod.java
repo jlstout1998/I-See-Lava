@@ -5,24 +5,27 @@ import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.render.BlockRenderLayer;
-import net.minecraft.util.Identifier; // Yarn's ResourceLocation
-import net.minecraft.fluid.Fluids; // Yarn's Fluids
+import net.minecraft.fluid.Fluids;
+import net.minecraft.util.Identifier;
 
+import java.util.Optional;
+
+/**
+ * Client-side initializer for the ISeeLava mod.
+ */
 public class ISeeLavaClientMod implements ClientModInitializer {
 	public static final String ID = "iseelava";
+	private static final Identifier TRANSLUCENT_LAVA_RP = new Identifier(ID, "translucent_lava");
 
 	@Override
 	public void onInitializeClient() {
-		BlockRenderLayerMap.putFluid(Fluids.LAVA, BlockRenderLayer.TRANSLUCENT);
-		BlockRenderLayerMap.putFluid(Fluids.FLOWING_LAVA, BlockRenderLayer.TRANSLUCENT);
+		// Make lava translucent by assigning it to the translucent render layer
+		BlockRenderLayerMap.putFluids(BlockRenderLayer.TRANSLUCENT, Fluids.LAVA, Fluids.FLOWING_LAVA);
 
-		FabricLoader.getInstance().getModContainer(ID).ifPresent(container -> {
-			ResourceManagerHelper.registerBuiltinResourcePack(modResource("translucent_lava"), container, ResourcePackActivationType.DEFAULT_ENABLED);
-		});
-	}
-
-	public static Identifier modResource(String path) {
-		return Identifier.of(ID, path);
+		 // Register the built-in resource pack for translucent lava
+		Optional<ModContainer> modContainer = FabricLoader.getInstance().getModContainer(ID);
+		modContainer.ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(TRANSLUCENT_LAVA_RP, container, ResourcePackActivationType.DEFAULT_ENABLED));
 	}
 }
