@@ -39,10 +39,8 @@ dependencies {
 
 spotless {
     java {
-        googleJavaFormat('1.17.0')
         removeUnusedImports()
-        trimTrailingWhitespace()
-        endWithNewline()
+        nofmt()
     }
 }
 
