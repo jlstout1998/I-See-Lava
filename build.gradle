@@ -2,12 +2,12 @@ plugins {
     id 'java'
     id 'fabric-loom' version '1.11.4'
     id 'maven-publish'
-    // id 'net.darkhax.curseforgegradle' version '1.+'
-    // id "com.modrinth.minotaur" version "2.+"
-    id "me.modmuss50.mod-publish-plugin" version "0.8.4"
+    id 'net.darkhax.curseforgegradle' version '1.+'
+    id "com.modrinth.minotaur" version "2.+"
+    // id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
 
-// import com.modrinth.minotaur.dependencies.ModDependency
+import com.modrinth.minotaur.dependencies.ModDependency
 import groovy.json.JsonSlurper
 import groovy.json.JsonOutput
 
@@ -35,38 +35,6 @@ dependencies {
         mappings "net.fabricmc:yarn:1.21.7+build.6"
 	modImplementation "net.fabricmc:fabric-loader:${project.loaderVersion}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabricVersion}"
-}
-
-loom {
-    // splitEnvironmentSourceSets()
-    // Set the path to your Access Widener file if you have one.
-    // This allows your mod to access normally private fields/methods in Minecraft.
-    def aw = project.file("src/main/resources/iseelava.accesswidener")
-    if (aw.exists()) {
-        accessWidenerPath.set(aw)
-    }
-
-    // Mixin configuration for renaming refmap files.
-    mixin {
-        defaultRefmapName.set("iseelava.refmap.json")
-    }
-
-    // Configure client and server run configurations for development.
-    // This block is optional if you're happy with Loom's default run configurations.
-    runs {
-        client {
-            client()
-            setConfigName("Fabric Client") // Name in your IDE's run configurations
-            ideConfigGenerated(true)
-            runDir("runs/client") // Working directory for the client run
-        }
-        server {
-            server()
-            setConfigName("Fabric Server") // Name in your IDE's run configurations
-            ideConfigGenerated(true)
-            runDir("runs/server") // Working directory for the server run
-        }
-    }
 }
 
 processResources {
