@@ -28,9 +28,6 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v3
 
-    - name: Run Spotless Check
-      run: ./gradlew spotlessCheck
-
     - name: Build with Gradle
       run: ./gradlew build
 
