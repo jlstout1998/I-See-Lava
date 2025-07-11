@@ -14,6 +14,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier; // Yarn's ResourceLocation
 // import net.minecraft.world.level.material.Fluids;
 import net.minecraft.fluid.Fluids; // Yarn's Fluids
+import net.minecraft.fluid.Fluid;
 
 // @Environment(EnvType.CLIENT)
 public class ISeeLavaClientMod implements ClientModInitializer {
