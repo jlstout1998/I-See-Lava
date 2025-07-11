@@ -1,12 +1,11 @@
 pluginManagement {
     repositories {
-        jcenter()
+        gradlePluginPortal()
         maven {
             name = 'Fabric'
             url = 'https://maven.fabricmc.net/'
         }
-        gradlePluginPortal()
-    	maven { url  = 'https://plugins.gradle.org/m2/' }
+        mavenCentral()
     }
 }
-rootProject.name = 'iseelava-fabric-1.20.2'
+rootProject.name = 'iseelava-fabric-1.21.7'
