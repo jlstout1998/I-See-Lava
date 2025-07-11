@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 // import net.minecraft.client.renderer.RenderType;
 // import net.minecraft.client.renderer.BlockRenderLayer;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluids;
 
