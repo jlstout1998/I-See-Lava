@@ -17,7 +17,7 @@ import java.util.Optional;
  */
 public class ISeeLavaClientMod implements ClientModInitializer {
 	public static final String ID = "iseelava";
-	private static final Identifier TRANSLUCENT_LAVA_RP = new Identifier(ID, "translucent_lava");
+	private static final Identifier TRANSLUCENT_LAVA_RP = Identifier.of(ID, "translucent_lava");
 
 	@Override
 	public void onInitializeClient() {
