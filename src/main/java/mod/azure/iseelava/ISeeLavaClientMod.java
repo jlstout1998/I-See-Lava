@@ -13,7 +13,7 @@ import net.fabricmc.loader.api.FabricLoader;
 // import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Identifier; // Yarn's ResourceLocation
 // import net.minecraft.world.level.material.Fluids;
-import net.minecraft.fluid.Fluid; // Yarn's Fluids
+import net.minecraft.fluid.Fluids; // Yarn's Fluids
 
 // @Environment(EnvType.CLIENT)
 public class ISeeLavaClientMod implements ClientModInitializer {
@@ -21,7 +21,7 @@ public class ISeeLavaClientMod implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		BlockRenderLayerMap.putFluid(LavaFluid.Still, BlockRenderLayer.TRANSLUCENT);
+		BlockRenderLayerMap.putFluid(Fluid.LAVA, BlockRenderLayer.TRANSLUCENT);
 		BlockRenderLayerMap.putFluid(Fluid.FLOWING_LAVA, BlockRenderLayer.TRANSLUCENT);
 
 		FabricLoader.getInstance().getModContainer(ID).ifPresent(container -> {
