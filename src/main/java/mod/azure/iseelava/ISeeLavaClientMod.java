@@ -22,8 +22,8 @@ public class ISeeLavaClientMod implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		BlockRenderLayerMap.putFluid(Fluid.LAVA, BlockRenderLayer.TRANSLUCENT);
-		BlockRenderLayerMap.putFluid(Fluid.FLOWING_LAVA, BlockRenderLayer.TRANSLUCENT);
+		BlockRenderLayerMap.putFluid(FlowableFluid.LAVA, BlockRenderLayer.TRANSLUCENT);
+		BlockRenderLayerMap.putFluid(FLOWING_LAVA, BlockRenderLayer.TRANSLUCENT);
 
 		FabricLoader.getInstance().getModContainer(ID).ifPresent(container -> {
 			ResourceManagerHelper.registerBuiltinResourcePack(modResource("translucent_lava"), container, ResourcePackActivationType.DEFAULT_ENABLED);
