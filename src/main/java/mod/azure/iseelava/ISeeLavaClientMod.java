@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.util.Identifier;
 
@@ -22,7 +22,7 @@ public class ISeeLavaClientMod implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		// Make lava translucent by assigning it to the translucent render layer
-		BlockRenderLayerMap.putFluids(RenderLayer.getTranslucent(), Fluids.LAVA, Fluids.FLOWING_LAVA);
+		BlockRenderLayerMap.putFluids(BlockRenderLayer.TRANSLUCENT, Fluids.LAVA, Fluids.FLOWING_LAVA);
 
 		 // Register the built-in resource pack for translucent lava
 		Optional<ModContainer> modContainer = FabricLoader.getInstance().getModContainer(ID);
