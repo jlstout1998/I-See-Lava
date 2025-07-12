@@ -67,6 +67,6 @@ tasks.withType(JavaCompile).configureEach {
 
 jar {
 	from("LICENSE") {
-		rename { "${it.name}_${project.modName}"}
+		rename { file -> "${file.name}_${project.modName}" }
 	}
 }
