@@ -65,8 +65,8 @@ tasks.withType(JavaCompile).configureEach {
 	it.options.release = 21
 }
 
-jar {
-	from(files("LICENSE")) {
-		rename { file -> "${file.name}_${project.modName}" }
+tasks.named('jar') {
+	from("LICENSE") {
+		rename { "${it}_${project.modName}" }
 	}
 }
