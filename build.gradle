@@ -34,12 +34,11 @@ dependencies {
 }
 
 tasks.named('processResources') {
-	inputs.property "version", project.modVersion
-	
+	def modVersionValue = project.modVersion
+	inputs.property "version", modVersionValue
 	filesMatching("fabric.mod.json") {
-		expand "version": project.modVersion
+		expand "version": modVersionValue
 	}
-
 	finalizedBy(minifyJsonResources)
 }
 
@@ -58,8 +57,6 @@ task minifyJsonResources {
 		println('Minified ' + jsonMinified + ' json files. Saved ' + jsonBytesSaved + ' bytes. Took ' + (System.currentTimeMillis() - jsonMinifyStart) + 'ms.')
 	}
 }
-
-// tasks.named('processResources').finalizedBy(minifyJsonResources)
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 21
