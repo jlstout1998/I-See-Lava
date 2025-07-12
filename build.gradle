@@ -6,11 +6,13 @@ plugins {
 import groovy.json.JsonSlurper
 import groovy.json.JsonOutput
 
-sourceCompatibility = JavaVersion.VERSION_21
-targetCompatibility = JavaVersion.VERSION_21
+java {
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
+}
 
 base {
-	archivesName = project.modName
+	archivesName.set(project.modName)
 }
 version = project.modVersion
 group = project.mavenGroup
@@ -37,7 +39,9 @@ processResources {
 	filesMatching("fabric.mod.json") {
 		expand "version": project.modVersion
 	}
-	
+}
+
+task minifyJsonResources {
 	doLast {
 		def jsonMinifyStart = System.currentTimeMillis()
 		def jsonMinified = 0
@@ -52,6 +56,8 @@ processResources {
 		println('Minified ' + jsonMinified + ' json files. Saved ' + jsonBytesSaved + ' bytes. Took ' + (System.currentTimeMillis() - jsonMinifyStart) + 'ms.')
 	}
 }
+
+processResources.finalizedBy(minifyJsonResources)
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 21
