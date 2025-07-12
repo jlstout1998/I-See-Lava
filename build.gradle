@@ -12,7 +12,7 @@ java {
 }
 
 base {
-	archivesName.set(project.modName)
+	archivesBaseName = project.modName
 }
 version = project.modVersion
 group = project.mavenGroup
@@ -33,13 +33,11 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabricVersion}"
 }
 
-processResources {
-	def modVersion = project.hasProperty('modVersion') ? project.modVersion : '1.0.0' // Default to 1.0.0 if not set
-
-	inputs.property "version", modVersion
+tasks.named('processResources') {
+	inputs.property "version", project.modVersion
 	
 	filesMatching("fabric.mod.json") {
-		expand(version: modVersion)
+		expand "version": project.modVersion
 	}
 }
 
@@ -59,14 +57,15 @@ task minifyJsonResources {
 	}
 }
 
-processResources.finalizedBy(minifyJsonResources)
+tasks.named('processResources').finalizedBy(minifyJsonResources)
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 21
 }
 
 tasks.named('jar') {
+	def modNameValue = project.modName
 	from("LICENSE") {
-		rename { "${it}_${project.modName}" }
+		rename { "${it}_${modNameValue}" }
 	}
 }
