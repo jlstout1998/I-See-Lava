@@ -3,9 +3,20 @@ updates:
   - package-ecosystem: "gradle"
     directory: "/"              # Root directory (where your build.gradle is)
     schedule:
-      interval: "weekly"        # Options: "daily", "weekly", "monthly"
-      day: "tuesday"            # Optional: Pick a day
+      interval: "monthly"       # Options: "daily", "weekly", "monthly"
+      day: 3                    # Optional: Pick a day
       time: "04:00"             # Optional: UTC time
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 2
     commit-message:
       prefix: "deps"
+    ignore:
+      - dependency-name: "com.fasterxml.jackson.core:jackson-core"
+        versions: ["*"]
+      - dependency-name: "org.apache.logging.log4j:log4j-core"
+        versions: ["*"]
+      - dependency-name: "com.nimbusds:nimbus-jose-jwt"
+        versions: ["*"]
+      - dependency-name: "net.minidev:json-smart"
+        versions: ["*"]
+      - dependency-name: "org.apache.commons:commons-lang3"
+        versions: ["*"]
