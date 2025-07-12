@@ -12,7 +12,7 @@ java {
 }
 
 base {
-	archivesBaseName = project.modName
+	archivesName = project.modName
 }
 version = project.modVersion
 group = project.mavenGroup
@@ -39,6 +39,8 @@ tasks.named('processResources') {
 	filesMatching("fabric.mod.json") {
 		expand "version": project.modVersion
 	}
+
+	finalizedBy(minifyJsonResources)
 }
 
 task minifyJsonResources {
@@ -57,7 +59,7 @@ task minifyJsonResources {
 	}
 }
 
-tasks.named('processResources').finalizedBy(minifyJsonResources)
+// tasks.named('processResources').finalizedBy(minifyJsonResources)
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 21
