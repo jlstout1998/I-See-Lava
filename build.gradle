@@ -1,12 +1,8 @@
 plugins {
     id 'java'
     id 'fabric-loom' version '1.11.4'
-    id 'maven-publish'
-    id 'net.darkhax.curseforgegradle' version '1.+'
-    id "com.modrinth.minotaur" version "2.+"
 }
 
-import com.modrinth.minotaur.dependencies.ModDependency
 import groovy.json.JsonSlurper
 import groovy.json.JsonOutput
 
@@ -26,7 +22,6 @@ repositories {
         name = 'Fabric'
         url = 'https://maven.fabricmc.net/'
     }
-    maven { url 'https://maven.parchmentmc.org' }
 }
 
 dependencies {
@@ -67,42 +62,5 @@ tasks.withType(JavaCompile).configureEach {
 jar {
 	from("LICENSE") {
 		rename { "${it}_${project.modName}"}
-	}
-}
-
-if (file('key.properties').exists()) {
-    task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
-        def curseProp = new Properties()
-        File secretPropsFile = file("key.properties")
-        curseProp.load(secretPropsFile.newInputStream())
-        apiToken = curseProp.getProperty("curseKey")
-
-        def mainFile = upload("543575", remapJar)
-        mainFile.releaseType = "release"
-        mainFile.changelogType = "text"
-        mainFile.addRequirement "fabric-api"
-        mainFile.changelog = file("CHANGELOG.txt")
-        mainFile.addModLoader("Fabric", "Quilt")
-        mainFile.addJavaVersion("Java 21")
-        mainFile.addGameVersion("1.21.7")
-    }
-}
-
-if (file('key.properties').exists()) {
-	modrinth {
-		def modrinthProp = new Properties()
-		File secretPropsFile = file("key.properties")
-		modrinthProp.load(secretPropsFile.newInputStream())
-
-		token = modrinthProp.getProperty('modrinthKey')
-		projectId = project.modrinthID
-		versionNumber = project.modVersion
-		uploadFile = remapJar
-		changelog = rootProject.file("changelog.txt").text
-		gameVersions = ['1.21.7']
-		loaders = ['fabric']
-		dependencies {
-        	required.project "fabric-api"
-   		}
 	}
 }
