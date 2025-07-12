@@ -34,10 +34,12 @@ dependencies {
 }
 
 processResources {
-	inputs.property "version", project.hasProperty('modVersion') ? project.modVersion : '1.0.0' // default if not set
+	def modVersion = project.hasProperty('modVersion') ? project.modVersion : '1.0.0' // Default to 1.0.0 if not set
+
+	inputs.property "version", modVersion
 	
 	filesMatching("fabric.mod.json") {
-		expand(version: project.modVersion)
+		expand(version: modVersion)
 	}
 }
 
