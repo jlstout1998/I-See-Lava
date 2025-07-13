@@ -7,9 +7,6 @@ import groovy.json.JsonSlurper
 import groovy.json.JsonOutput
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
-	
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
 		vendor = JvmVendorSpec.ADOPTIUM
@@ -46,7 +43,7 @@ tasks.named('processResources') {
 	finalizedBy(minifyJsonResources)
 }
 
-task minifyJsonResources {
+tasks.register('minifyJsonResources') {
 	doLast {
 		def jsonMinifyStart = System.currentTimeMillis()
 		def jsonMinified = 0
@@ -60,6 +57,10 @@ task minifyJsonResources {
 		}
 		println('Minified ' + jsonMinified + ' json files. Saved ' + jsonBytesSaved + ' bytes. Took ' + (System.currentTimeMillis() - jsonMinifyStart) + 'ms.')
 	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.release = 21
 }
 
 tasks.named('jar') {
