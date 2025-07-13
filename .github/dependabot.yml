@@ -4,7 +4,6 @@ updates:
     directory: "/"              # Root directory (where your build.gradle is)
     schedule:
       interval: "monthly"       # Options: "daily", "weekly", "monthly"
-      day: "3"                  # Optional: Pick a day
       time: "04:00"             # Optional: UTC time
     open-pull-requests-limit: 2
     commit-message:
