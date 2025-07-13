@@ -8,14 +8,3 @@ updates:
     open-pull-requests-limit: 2
     commit-message:
       prefix: "deps"
-    ignore:
-      - dependency-name: "com.fasterxml.jackson.core:jackson-core"
-        versions: ["*"]
-      - dependency-name: "org.apache.logging.log4j:log4j-core"
-        versions: ["*"]
-      - dependency-name: "com.nimbusds:nimbus-jose-jwt"
-        versions: ["*"]
-      - dependency-name: "net.minidev:json-smart"
-        versions: ["*"]
-      - dependency-name: "org.apache.commons:commons-lang3"
-        versions: ["*"]
