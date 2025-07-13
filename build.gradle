@@ -9,6 +9,11 @@ import groovy.json.JsonOutput
 java {
 	sourceCompatibility = JavaVersion.VERSION_21
 	targetCompatibility = JavaVersion.VERSION_21
+	
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+		vendor = JvmVendorSpec.ADOPTIUM
+	}
 }
 
 base {
@@ -19,7 +24,6 @@ group = project.mavenGroup
 
 repositories {
 	mavenCentral()
-	mavenLocal()
 	maven {
 		name = 'Fabric'
 		url = 'https://maven.fabricmc.net/'
@@ -56,10 +60,6 @@ task minifyJsonResources {
 		}
 		println('Minified ' + jsonMinified + ' json files. Saved ' + jsonBytesSaved + ' bytes. Took ' + (System.currentTimeMillis() - jsonMinifyStart) + 'ms.')
 	}
-}
-
-tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
 }
 
 tasks.named('jar') {
