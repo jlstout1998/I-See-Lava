@@ -7,17 +7,11 @@ pluginManagement {
         }
         mavenCentral()
     }
-    resolutionStrategy {
-        eachPlugin {
-            if (requested.id.id == 'fabric-loom') {
-                useVersion(findVersion("loom").get())
-            }
-        }
-    }
 }
 
 plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+    alias(libs.plugins.fabric.loom) apply false
 }
 
 dependencyResolutionManagement {
