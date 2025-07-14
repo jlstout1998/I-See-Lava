@@ -14,7 +14,7 @@ java {
 }
 
 base {
-	archivesName = project.modName
+	archivesName = "${project.modName}-${project.minecraftVersion}"
 }
 version = project.modVersion
 group = project.mavenGroup
@@ -36,9 +36,17 @@ dependencies {
 
 tasks.named('processResources') {
 	def modVersionValue = project.modVersion
+	def mcVersionValue = project.minecraftVersion
+	def loaderVersionValue = project.loaderVersion
 	inputs.property "version", modVersionValue
+	inputs.property "minecraftVersion", mcVersionValue
+	inputs.property "loaderVersion", loaderVersionValue
 	filesMatching("fabric.mod.json") {
-		expand "version": modVersionValue
+		expand(
+			"version": modVersionValue,
+			"minecraftVersion": mcVersionValue,
+			"loaderVersion": loaderVersionValue
+		)
 	}
 	finalizedBy(minifyJsonResources)
 }
@@ -64,8 +72,8 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 tasks.named('jar') {
-	def modNameValue = project.modName
+	def fullModName = "${project.modName}-${project.minecraftVersion}"
 	from("LICENSE") {
-		rename { "${it}_${modNameValue}" }
+		rename { "${it}_${fullModName}" }
 	}
 }
