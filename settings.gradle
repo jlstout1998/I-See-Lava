@@ -1,18 +1,3 @@
-dependencyResolutionManagement {
-    repositories {
-        mavenCentral()
-        maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
-        }
-    }
-    versionCatalogs {
-        libs {
-            from(files("gradle/libs.versions.toml"))
-        }
-    }
-}
-
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -27,6 +12,21 @@ pluginManagement {
             if (requested.id.id == 'fabric-loom') {
                 useVersion(findVersion("loom").get())
             }
+        }
+    }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+    }
+    versionCatalogs {
+        libs {
+            from(files("gradle/libs.versions.toml"))
         }
     }
 }
