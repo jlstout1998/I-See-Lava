@@ -1,6 +1,9 @@
+def mcVersion = libs.versions.minecraft.get()
+def loaderVersion = libs.versions.fabricLoader.get()
+
 plugins {
 	id 'java'
-	id 'fabric-loom' version '1.11.4'
+	id 'fabric-loom' version libs.plugins.fabric-loom.version
 }
 
 java {
@@ -9,9 +12,6 @@ java {
 		vendor = JvmVendorSpec.ADOPTIUM
 	}
 }
-
-def mcVersion = libs.versions.minecraft.get()
-def loaderVersion = libs.versions.fabricLoader.get()
 
 base {
 	archivesName = "${project.modName}-${mcVersion}"
