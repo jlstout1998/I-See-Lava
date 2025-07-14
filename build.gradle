@@ -55,7 +55,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 tasks.named('jar') {
-	def fullModName = "${project.modName}-${project.minecraftVersion}"
+	def fullModName = "${project.modName}-${mcVersion}"
 	from("LICENSE") {
 		rename { "${it}_${fullModName}" }
 	}
