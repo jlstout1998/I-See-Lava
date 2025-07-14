@@ -24,6 +24,10 @@ repositories {
 	}
 }
 
+def plugin(Provider<PluginDependency> plugin) {
+    return plugin.map { it.pluginId + ":" + it.pluginId + ".gradle.plugin:" + it.version }
+}
+
 dependencies {
 	minecraft libs.minecraft
 	mappings libs.yarn
