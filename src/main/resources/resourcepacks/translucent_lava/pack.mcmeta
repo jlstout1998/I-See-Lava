@@ -1,6 +1,6 @@
 {
 	"pack": {
-		"pack_format": 64,
+		"pack_format": ${packFormat},
 		"description": "Enable I See Lava"
 	}
 }
