@@ -1,4 +1,5 @@
 [versions]
+java = "21"
 minecraft = "1.21.7"
 loom = "1.11.4"
 yarn = "1.21.7+build.6"
