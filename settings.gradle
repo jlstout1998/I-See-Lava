@@ -16,6 +16,10 @@ pluginManagement {
     }
 }
 
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
+
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
@@ -29,10 +33,6 @@ dependencyResolutionManagement {
             from(files("gradle/libs.versions.toml"))
         }
     }
-}
-
-plugins {
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
 }
 
 rootProject.name = 'iseelava-fabric-1.21.7'
