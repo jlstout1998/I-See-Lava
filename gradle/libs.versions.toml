@@ -4,7 +4,6 @@ loom = "1.11.4"
 yarn = "1.21.7+build.6"
 fabric = "0.129.0+1.21.7"
 fabricLoader = "0.16.14"
-foojay = "1.0.0"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
