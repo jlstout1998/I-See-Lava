@@ -1,3 +1,18 @@
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+    }
+    versionCatalogs {
+        libs {
+            from(files("gradle/libs.versions.toml"))
+        }
+    }
+}
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -7,23 +22,17 @@ pluginManagement {
         }
         mavenCentral()
     }
-    plugins {
-        alias(libs.plugins.fabric.loom)
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == 'fabric-loom') {
+                useVersion(findVersion("loom").get())
+            }
+        }
     }
 }
 
 plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
-}
-
-dependencyResolutionManagement {
-    repositories {
-        mavenCentral()
-        maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
-        }
-    }
 }
 
 rootProject.name = 'iseelava-fabric-1.21.7'
