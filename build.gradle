@@ -3,9 +3,6 @@ plugins {
 	id 'fabric-loom' version '1.11.4'
 }
 
-import groovy.json.JsonSlurper
-import groovy.json.JsonOutput
-
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
@@ -47,23 +44,6 @@ tasks.named('processResources') {
 			"minecraftVersion": mcVersionValue,
 			"loaderVersion": loaderVersionValue
 		)
-	}
-	finalizedBy(minifyJsonResources)
-}
-
-tasks.register('minifyJsonResources') {
-	doLast {
-		def jsonMinifyStart = System.currentTimeMillis()
-		def jsonMinified = 0
-		def jsonBytesSaved = 0
-		fileTree(dir: 'build/resources/main', include: '**/*.json').each {
-			File file ->
-			jsonMinified++
-			def oldLength = file.length()
-			file.text = JsonOutput.toJson(new JsonSlurper().parse(file))
-			jsonBytesSaved += oldLength - file.length()
-		}
-		println('Minified ' + jsonMinified + ' json files. Saved ' + jsonBytesSaved + ' bytes. Took ' + (System.currentTimeMillis() - jsonMinifyStart) + 'ms.')
 	}
 }
 
