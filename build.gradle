@@ -5,7 +5,8 @@ plugins {
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
+		def javaVersion = libs.versions.java.get().toInteger()
+		languageVersion = JavaLanguageVersion.of(javaVersion)
 		vendor = JvmVendorSpec.ADOPTIUM
 	}
 }
