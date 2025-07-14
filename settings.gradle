@@ -7,9 +7,6 @@ pluginManagement {
         }
         mavenCentral()
     }
-    plugins {
-        id 'fabric-loom' version libs.versions.loom.get()
-    }
 }
 
 plugins {
