@@ -10,18 +10,16 @@ java {
 	}
 }
 
-ext {
-	minecraftVersion = libs.versions.minecraft.get()
-	fabricLoaderVersion = libs.versions.fabricLoader.get()
-	modVersion = project.findProperty('modVersion') ?: 'unspecified'
-	mavenGroup = project.findProperty('mavenGroup') ?: 'unspecified'
-	modName = project.findProperty('modName') ?: project.name
-}
+def minecraftVersion = libs.versions.minecraft.get()
+def fabricLoaderVersion = libs.versions.fabricLoader.get()
+def modVersion = project.findProperty('modVersion') ?: 'unspecified'
+def mavenGroup = project.findProperty('mavenGroup') ?: 'unspecified'
+def modName = project.findProperty('modName') ?: project.name
 
-group = ext.mavenGroup
-version = ext.modVersion
+group = mavenGroup
+version = modVersion
 base {
-	archivesName = "${project.modName}-${ext.minecraftVersion}"
+	archivesName = "${modName}-${minecraftVersion}"
 }
 
 repositories {
@@ -40,14 +38,14 @@ dependencies {
 }
 
 tasks.named('processResources') {
-	inputs.property "modVersion", ext.modVersion
-	inputs.property "minecraftVersion", ext.minecraftVersion
-	inputs.property "loaderVersion", ext.fabricLoaderVersion
+	inputs.property "modVersion", modVersion
+	inputs.property "minecraftVersion", minecraftVersion
+	inputs.property "loaderVersion", fabricLoaderVersion
 	filesMatching("fabric.mod.json") {
 		expand(
-			"version": ext.modVersion,
-			"minecraftVersion": ext.minecraftVersion,
-			"loaderVersion": ext.fabricLoaderVersion
+			"version": modVersion,
+			"minecraftVersion": minecraftVersion,
+			"loaderVersion": fabricLoaderVersion
 		)
 	}
 }
@@ -57,7 +55,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 tasks.named('jar') {
-	def fullModName = "${ext.modName}-${ext.minecraftVersion}"
+	def fullModName = "${modName}-${minecraftVersion}"
 	from("LICENSE") {
 		rename { "${it}_${fullModName}" }
 	}
