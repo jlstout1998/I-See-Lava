@@ -51,7 +51,7 @@ tasks.named('processResources') {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	options.release = java.toolchain.languageVersion.asInt().get()
+	options.release = java.toolchain.languageVersion.get().asInt()
 }
 
 tasks.named('jar') {
