@@ -21,7 +21,7 @@ ext {
 group = ext.mavenGroup
 version = ext.modVersion
 base {
-	archivesName = "${ext.modName}-${ext.minecraftVersion}"
+	archivesName = "${project.modName}-${ext.minecraftVersion}"
 }
 
 repositories {
