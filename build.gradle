@@ -3,19 +3,20 @@ plugins {
 	alias(libs.plugins.loomID)
 }
 
-java {
-	toolchain {
-		def javaVersion = libs.versions.java.get().toInteger()
-		languageVersion = JavaLanguageVersion.of(javaVersion)
-		vendor = JvmVendorSpec.ADOPTIUM
-	}
-}
-
+def javaVersion = libs.versions.java.get().toInteger()
 def minecraftVersion = libs.versions.minecraft.get()
+def packFormatVersion = libs.versions.pack.get()
 def fabricLoaderVersion = libs.versions.fabricLoader.get()
 def modVersion = project.findProperty('modVersion') ?: 'unspecified'
 def mavenGroup = project.findProperty('mavenGroup') ?: 'unspecified'
 def modName = project.findProperty('modName') ?: project.name
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(javaVersion)
+		vendor = JvmVendorSpec.ADOPTIUM
+	}
+}
 
 group = mavenGroup
 version = modVersion
@@ -42,11 +43,19 @@ tasks.named('processResources') {
 	inputs.property "modVersion", modVersion
 	inputs.property "minecraftVersion", minecraftVersion
 	inputs.property "loaderVersion", fabricLoaderVersion
+	inputs.property "javaVersion", javaVersion
+	inputs.property "packFormat", packFormatVersion
 	filesMatching("fabric.mod.json") {
 		expand(
 			"version": modVersion,
 			"minecraftVersion": minecraftVersion,
-			"loaderVersion": fabricLoaderVersion
+			"loaderVersion": fabricLoaderVersion,
+			"javaVersion": javaVersion
+		)
+	}
+	filesMatching("resourcepacks/translucent_lava/pack.mcmeta") {
+		expand(
+			"packFormat": packFormatVersion
 		)
 	}
 }
