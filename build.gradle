@@ -10,8 +10,10 @@ java {
 	}
 }
 
+def mcVersion = libs.versions.minecraft.get()
+
 base {
-	archivesName = "${project.modName}-${project.minecraftVersion}"
+	archivesName = "${project.modName}-${mcVersion}"
 }
 version = project.getProperty('modVersion')
 group = project.getProperty('mavenGroup')
