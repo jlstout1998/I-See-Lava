@@ -28,11 +28,6 @@ dependencyResolutionManagement {
             url = 'https://maven.fabricmc.net/'
         }
     }
-    versionCatalogs {
-        libs {
-            from(files("gradle/libs.versions.toml"))
-        }
-    }
 }
 
 rootProject.name = 'iseelava-fabric-1.21.7'
