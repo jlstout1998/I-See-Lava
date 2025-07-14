@@ -2,16 +2,17 @@
 	"schemaVersion": 1,
 	"id": "iseelava",
 	"version": "${version}",
-	"name": "I See Lava",
+	"name": "I See Lava (Fabric Fork)",
 	"description": "Just makes lava see through",
 	"authors": [
 		"AzureDoomC",
-		"Sea Kerman"
+		"Sea Kerman",
+		"jlstout1998 (Fabric Fork)"
 	],
 	"contact": {
-		"homepage": "https://modrinth.com/mod/i-see-lava",
-		"issues": "https://github.com/AzureDoom/I-See-Lava/issues",
-		"sources": "https://github.com/AzureDoom/I-See-Lava/"
+		"homepage": "https://github.com/jlstout1998/I-See-Lava",
+		"issues": "https://github.com/jlstout1998/I-See-Lava/issues",
+		"sources": "https://github.com/jlstout1998/I-See-Lava"
 	},
 	"license": "MIT",
 	"icon": "assets/iseelava/icon.png",
