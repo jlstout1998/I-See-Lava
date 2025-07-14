@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	alias(libs.plugins.fabric.loom)
+	id 'fabric-loom' version '1.11.4'
 }
 
 java {
@@ -22,10 +22,6 @@ repositories {
 		name = 'Fabric'
 		url = 'https://maven.fabricmc.net/'
 	}
-}
-
-def plugin(Provider<PluginDependency> plugin) {
-    return plugin.map { it.pluginId + ":" + it.pluginId + ".gradle.plugin:" + it.version }
 }
 
 dependencies {
