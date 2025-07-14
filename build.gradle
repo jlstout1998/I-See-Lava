@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'fabric-loom' version '1.11.4'
+	id 'fabric-loom' version libs.plugins.fabric.loom
 }
 
 java {
@@ -13,8 +13,8 @@ java {
 base {
 	archivesName = "${project.modName}-${project.minecraftVersion}"
 }
-version = project.modVersion
-group = project.mavenGroup
+version = project.getProperty('modVersion')
+group = project.getProperty('mavenGroup')
 
 repositories {
 	mavenCentral()
@@ -25,10 +25,10 @@ repositories {
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:${project.minecraftVersion}"
-        mappings "net.fabricmc:yarn:${project.yarnVersion}"
-	modImplementation "net.fabricmc:fabric-loader:${project.loaderVersion}"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabricVersion}"
+	minecraft libs.minecraft
+	mappings libs.yarn
+	modImplementation libs.fabric.loader
+	modImplementation libs.fabric.api
 }
 
 tasks.named('processResources') {
