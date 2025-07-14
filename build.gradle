@@ -35,7 +35,7 @@ dependencies {
 
 tasks.named('processResources') {
 	def modVersionValue = project.modVersion
-	def mcVersionValue = project.minecraftVersion
+	def mcVersionValue = mcVersion
 	def loaderVersionValue = project.loaderVersion
 	inputs.property "version", modVersionValue
 	inputs.property "minecraftVersion", mcVersionValue
