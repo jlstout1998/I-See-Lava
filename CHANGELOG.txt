@@ -1,3 +1,4 @@
 v.1.2.0
 
 - Fixes minecraft version for use on 1.21.7
+- Used https://mappings.dev/index.html to move from yarn to Offical Mojang mappings
