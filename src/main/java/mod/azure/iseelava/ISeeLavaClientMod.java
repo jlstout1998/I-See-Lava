@@ -6,11 +6,8 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-// import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
-// import net.minecraft.fluid.Fluids;
 import net.minecraft.world.level.material.Fluids;
-// import net.minecraft.util.Identifier;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Optional;
