@@ -24,14 +24,6 @@ base {
 	archivesName = "${modName}-${minecraftVersion}"
 }
 
-repositories {
-	mavenCentral()
-	maven {
-		name = 'Fabric'
-		url = 'https://maven.fabricmc.net/'
-	}
-}
-
 dependencies {
 	minecraft libs.minecraft
 	mappings loom.officialMojangMappings()
