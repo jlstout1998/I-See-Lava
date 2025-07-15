@@ -35,9 +35,7 @@ repositories {
 dependencies {
 	minecraft libs.minecraft
 	// mappings libs.yarn
-	mappings {
-		officialMojangMappings()
-	}
+	mappings loom.officialMojangMappings()
 	modImplementation libs.fabric.loader
 	modImplementation libs.fabric.api
 }
