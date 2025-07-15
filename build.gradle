@@ -8,7 +8,6 @@ def minecraftVersion = libs.versions.minecraft.get()
 def packFormatVersion = libs.versions.pack.get()
 def fabricLoaderVersion = libs.versions.fabricLoader.get()
 def modVersion = project.findProperty('modVersion') ?: 'unspecified'
-def mavenGroup = project.findProperty('mavenGroup') ?: 'unspecified'
 def modName = project.findProperty('modName') ?: project.name
 
 java {
@@ -18,8 +17,6 @@ java {
 	}
 }
 
-group = mavenGroup
-version = modVersion
 base {
 	archivesName = "${modName}-${minecraftVersion}"
 }
