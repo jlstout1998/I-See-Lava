@@ -13,15 +13,4 @@ plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
 }
 
-/* Let fabric loom handle this code:
-dependencyResolutionManagement {
-    repositories {
-        mavenCentral()
-        maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
-        }
-    }
-} */
-
 rootProject.name = 'iseelava-fabric-1.21.7'
