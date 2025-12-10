@@ -1,10 +1,10 @@
 [versions]
 java = "21"
-minecraft = "1.21.7"
-pack = "64"
-loom = "1.11.4"
-fabric = "0.129.0+1.21.7"
-fabricLoader = "0.16.14"
+minecraft = "1.21.10"
+pack = "69.0"
+loom = "1.14.5"
+fabric = "0.138.3+1.21.10"
+fabricLoader = "0.18.2"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
