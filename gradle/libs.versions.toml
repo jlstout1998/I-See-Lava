@@ -2,7 +2,7 @@
 java = "21"
 minecraft = "1.21.11"
 pack = "75.0"
-loom = "1.14.5"
+loom = "1.14.10"
 fabric = "0.141.1+1.21.11"
 fabricLoader = "0.18.4"
 
