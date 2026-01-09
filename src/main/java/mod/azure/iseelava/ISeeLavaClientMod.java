@@ -2,8 +2,8 @@ package mod.azure.iseelava;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
+import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
@@ -26,6 +26,6 @@ public class ISeeLavaClientMod implements ClientModInitializer {
 
 		 // Register the built-in resource pack for translucent lava
 		Optional<ModContainer> modContainer = FabricLoader.getInstance().getModContainer(ID);
-		modContainer.ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(TRANSLUCENT_LAVA_RP, container, ResourcePackActivationType.DEFAULT_ENABLED));
+		modContainer.ifPresent(container -> ResourceLoader.registerBuiltinResourcePack(TRANSLUCENT_LAVA_RP, container, PackActivationType.DEFAULT_ENABLED));
 	}
 }
