@@ -26,6 +26,6 @@ public class ISeeLavaClientMod implements ClientModInitializer {
 
 		 // Register the built-in resource pack for translucent lava
 		Optional<ModContainer> modContainer = FabricLoader.getInstance().getModContainer(ID);
-		modContainer.ifPresent(container -> ResourceLoader.registerBuiltinResourcePack(TRANSLUCENT_LAVA_RP, container, PackActivationType.DEFAULT_ENABLED));
+		modContainer.ifPresent(container -> ResourceLoader.registerBuiltinPack(TRANSLUCENT_LAVA_RP, container, PackActivationType.DEFAULT_ENABLED));
 	}
 }
