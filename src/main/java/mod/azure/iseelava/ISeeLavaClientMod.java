@@ -8,7 +8,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.Optional;
 
@@ -17,7 +17,7 @@ import java.util.Optional;
  */
 public class ISeeLavaClientMod implements ClientModInitializer {
 	public static final String ID = "iseelava";
-	private static final ResourceLocation TRANSLUCENT_LAVA_RP = ResourceLocation.fromNamespaceAndPath(ID, "translucent_lava");
+	private static final Identifier TRANSLUCENT_LAVA_RP = Identifier.fromNamespaceAndPath(ID, "translucent_lava");
 
 	@Override
 	public void onInitializeClient() {
