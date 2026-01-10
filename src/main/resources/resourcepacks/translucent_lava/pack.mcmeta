@@ -2,6 +2,6 @@
 	"pack": {
 		"description": "Enable I See Lava",
 		"min_format": 69.0,
-		"max_format": ${pack_format}
+		"max_format": ${packFormat}
 	}
 }
