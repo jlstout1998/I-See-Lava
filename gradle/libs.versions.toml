@@ -1,6 +1,6 @@
 [versions]
 java = "21"
-minecraft = "26.1"
+minecraft = "26.1-snapshot-2"
 pack = "76.0"
 loom = "1.14.10"
 fabric = "0.141.2+26.1"
