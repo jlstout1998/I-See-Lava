@@ -23,7 +23,7 @@ base {
 
 dependencies {
 	minecraft libs.minecraft
-	mappings loom.officialMojangMappings()
+	// mappings loom.officialMojangMappings()
 	modImplementation libs.fabric.loader
 	modImplementation libs.fabric.api
 }
@@ -59,3 +59,4 @@ tasks.named('jar') {
 		rename { "${it}_${fullModName}" }
 	}
 }
+
