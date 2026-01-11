@@ -3,22 +3,32 @@ plugins {
 	alias(libs.plugins.loomID)
 }
 
+/*
 def javaVersion = libs.versions.java.get().toInteger()
 def minecraftVersion = libs.versions.minecraft.get()
 def packFormatVersion = libs.versions.pack.get()
 def fabricLoaderVersion = libs.versions.fabricLoader.get()
 def modVersion = project.findProperty('modVersion') ?: 'unspecified'
+*/
+
+def replaceProperties = [
+	"version": project.findProperty('modVersion') ?: 'unspecified',
+	"minecraftVersion": libs.versions.minecraft.get(),
+	"loaderVersion": libs.versions.fabricLoader.get(),
+	"javaVersion": libs.versions.java.get().toInteger(),
+	"packFormat": libs.versions.pack.get()
+]
 def modName = project.findProperty('modName') ?: project.name
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(javaVersion)
+		languageVersion = JavaLanguageVersion.of(replaceProperties.javaVersion)
 		vendor = JvmVendorSpec.ADOPTIUM
 	}
 }
 
 base {
-	archivesName = "${modName}-${minecraftVersion}"
+	archivesName = "${modName}-${replaceProperties.minecraftVersion}"
 }
 
 dependencies {
@@ -27,6 +37,15 @@ dependencies {
 	implementation libs.fabric.api
 }
 
+tasks.named('processResources', ProcessResources).configure {   
+    inputs.properties(replaceProperties)
+
+    filesMatching(["fabric.mod.json", "resourcepacks/translucent_lava/pack.mcmeta"]) {
+        expand replaceProperties
+    }
+}
+
+/*
 tasks.named('processResources') {
 	inputs.property "modVersion", modVersion
 	inputs.property "minecraftVersion", minecraftVersion
@@ -47,17 +66,19 @@ tasks.named('processResources') {
 		)
 	}
 }
+*/
 
 tasks.withType(JavaCompile).configureEach {
 	options.release = java.toolchain.languageVersion.get().asInt()
 }
 
 tasks.named('jar') {
-	def fullModName = "${modName}-${minecraftVersion}"
+	def fullModName = "${modName}-${replaceProperties.minecraftVersion}"
 	from("LICENSE") {
 		rename { "${it}_${fullModName}" }
 	}
 }
+
 
 
 
