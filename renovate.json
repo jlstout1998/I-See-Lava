@@ -13,8 +13,7 @@
         "com.mojang:minecraft"
       ],
       "groupName": "Fabric Stack",
-      "matchUpdateTypes": ["minor", "patch", "digest"],
-      "registryUrls": ["https://maven.fabricmc.net/"]
+      "matchUpdateTypes": ["minor", "patch", "digest"]
     },
     {
       "description": "Allow Renovate to follow Minecraft snapshots which use non-semver strings",
