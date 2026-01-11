@@ -7,23 +7,22 @@
   "labels": ["dependencies"],
   "packageRules": [
     {
-      "description": "Group Fabric and Minecraft updates and define their registries",
+      "description": "Minecraft Game Lookup",
       "matchDatasources": ["maven"],
-      "matchPackagePatterns": [
-        "net.fabricmc",
-        "com.mojang"
-      ],
-      "groupName": "Fabric Stack",
-      "registryUrls": [
-        "https://maven.fabricmc.net/",
-        "https://libraries.minecraft.net/",
-        "https://repo1.maven.org/maven2/"
-      ]
+      "matchPackageNames": ["com.mojang:minecraft"],
+      "registryUrls": ["https://libraries.minecraft.net/"],
+      "versioning": "loose",
+      "groupName": "Fabric Stack"
     },
     {
-      "description": "Handle Minecraft snapshot versioning",
-      "matchPackageNames": ["com.mojang:minecraft"],
-      "versioning": "loose"
+      "description": "Fabric Components Lookup",
+      "matchDatasources": ["maven"],
+      "matchPackagePatterns": ["net.fabricmc"],
+      "registryUrls": [
+        "https://maven.fabricmc.net/",
+        "https://repo1.maven.org/maven2/"
+      ],
+      "groupName": "Fabric Stack"
     },
     {
       "description": "Always update the Gradle wrapper",
