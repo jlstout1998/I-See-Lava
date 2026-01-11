@@ -5,13 +5,23 @@
   ],
   "dependencyDashboard": true,
   "labels": ["dependencies"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Track Minecraft versions via Fabric Mappings (reliable source for bots)",
+      "fileMatch": ["gradle/libs.versions.toml"],
+      "matchStrings": [
+        "minecraft\\s*=\\s*\"(?<currentValue>.*)\""
+      ],
+      "depNameTemplate": "com.mojang:minecraft",
+      "datasourceTemplate": "github-tags",
+      "packageNameTemplate": "FabricMC/minecraft-mappings"
+    }
+  ],
   "packageRules": [
     {
-      "description": "Minecraft Game Lookup",
-      "matchDatasources": ["maven"],
-      "matchPackageNames": ["com.mojang:minecraft"],
-      "registryUrls": ["https://libraries.minecraft.net/"],
-      "versioning": "loose",
+      "description": "Group Fabric and Minecraft updates together",
+      "matchPackagePatterns": ["net.fabricmc", "com.mojang"],
       "groupName": "Fabric Stack"
     },
     {
