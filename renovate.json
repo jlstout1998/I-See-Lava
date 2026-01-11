@@ -7,16 +7,21 @@
   "labels": ["dependencies"],
   "packageRules": [
     {
-      "description": "Group Fabric and Minecraft updates together to ensure compatibility",
+      "description": "Group Fabric and Minecraft updates and define their registries",
+      "matchDatasources": ["maven"],
       "matchPackagePatterns": [
         "net.fabricmc",
-        "com.mojang:minecraft"
+        "com.mojang"
       ],
       "groupName": "Fabric Stack",
-      "matchUpdateTypes": ["minor", "patch", "digest"]
+      "registryUrls": [
+        "https://maven.fabricmc.net/",
+        "https://libraries.minecraft.net/",
+        "https://repo1.maven.org/maven2/"
+      ]
     },
     {
-      "description": "Allow Renovate to follow Minecraft snapshots which use non-semver strings",
+      "description": "Handle Minecraft snapshot versioning",
       "matchPackageNames": ["com.mojang:minecraft"],
       "versioning": "loose"
     },
