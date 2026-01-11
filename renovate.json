@@ -1,41 +1,34 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ],
+  "extends": ["config:recommended"],
   "dependencyDashboard": true,
   "labels": ["dependencies"],
   "customManagers": [
     {
       "customType": "regex",
-      "description": "Track Minecraft versions via Fabric Mappings (reliable source for bots)",
+      "description": "Track Minecraft versions using DockerHub tags (very stable for bots)",
       "fileMatch": ["gradle/libs.versions.toml"],
       "matchStrings": [
         "minecraft\\s*=\\s*\"(?<currentValue>.*)\""
       ],
-      "depNameTemplate": "com.mojang:minecraft",
-      "datasourceTemplate": "github-tags",
-      "packageNameTemplate": "FabricMC/minecraft-mappings"
+      "depNameTemplate": "minecraft",
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "itzg/minecraft-server"
     }
   ],
   "packageRules": [
     {
-      "description": "Group Fabric and Minecraft updates together",
-      "matchPackagePatterns": ["net.fabricmc", "com.mojang"],
+      "description": "Group everything into the Fabric Stack",
+      "matchPackageNames": ["minecraft", "net.fabricmc:**", "com.mojang:**"],
       "groupName": "Fabric Stack"
     },
     {
-      "description": "Fabric Components Lookup",
-      "matchDatasources": ["maven"],
+      "description": "Fabric Maven Registry",
       "matchPackagePatterns": ["net.fabricmc"],
-      "registryUrls": [
-        "https://maven.fabricmc.net/",
-        "https://repo1.maven.org/maven2/"
-      ],
-      "groupName": "Fabric Stack"
+      "registryUrls": ["https://maven.fabricmc.net/"]
     },
     {
-      "description": "Always update the Gradle wrapper",
+      "description": "Enable Gradle updates",
       "matchPackageNames": ["gradle"],
       "enabled": true
     }
