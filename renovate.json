@@ -6,7 +6,7 @@
   "customManagers": [
     {
       "customType": "regex",
-      "description": "Track Minecraft versions using DockerHub tags (very stable for bots)",
+      "description": "Track Minecraft versions using DockerHub tags",
       "fileMatch": ["gradle/libs.versions.toml"],
       "matchStrings": [
         "minecraft\\s*=\\s*\"(?<currentValue>.*)\""
@@ -18,6 +18,11 @@
   ],
   "packageRules": [
     {
+      "description": "Disable the default Maven lookup for Minecraft to prevent errors",
+      "matchPackageNames": ["com.mojang:minecraft"],
+      "enabled": false
+    },
+    {
       "description": "Group everything into the Fabric Stack",
       "matchPackageNames": ["minecraft", "net.fabricmc:**", "com.mojang:**"],
       "groupName": "Fabric Stack"
@@ -26,11 +31,6 @@
       "description": "Fabric Maven Registry",
       "matchPackagePatterns": ["net.fabricmc"],
       "registryUrls": ["https://maven.fabricmc.net/"]
-    },
-    {
-      "description": "Enable Gradle updates",
-      "matchPackageNames": ["gradle"],
-      "enabled": true
     }
   ],
   "timezone": "UTC",
