@@ -33,7 +33,7 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build --build-cache --warning-mode all
 
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v6
       with:
         name: Mod-JARs
         path: build/libs/*.jar
