@@ -1,9 +1,9 @@
 [versions]
 java = "21"
 minecraft = "26.1"
-pack = "75.0"
+pack = "76.0"
 loom = "1.14.10"
-fabric = "0.141.1+1.21.11"
+fabric = "0.141.2+26.1"
 fabricLoader = "0.18.4"
 
 [libraries]
