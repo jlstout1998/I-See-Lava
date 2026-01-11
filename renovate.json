@@ -1,0 +1,31 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "dependencyDashboard": true,
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "description": "Group Fabric and Minecraft updates together to ensure compatibility",
+      "matchPackagePatterns": [
+        "net.fabricmc",
+        "com.mojang:minecraft"
+      ],
+      "groupName": "Fabric Stack",
+      "matchUpdateTypes": ["minor", "patch", "digest"]
+    },
+    {
+      "description": "Allow Renovate to follow Minecraft snapshots which use non-semver strings",
+      "matchPackageNames": ["com.mojang:minecraft"],
+      "versioning": "loose"
+    },
+    {
+      "description": "Always update the Gradle wrapper",
+      "matchPackageNames": ["gradle"],
+      "enabled": true
+    }
+  ],
+  "timezone": "UTC",
+  "schedule": ["at any time"]
+}
