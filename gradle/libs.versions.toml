@@ -2,7 +2,7 @@
 java = "25"
 minecraft = "26.1-snapshot-2"
 pack = "76.0"
-loom = "1.14-SNAPSHOT"
+loom = "1.14.10
 fabric = "0.141.2+26.1"
 fabricLoader = "0.18.4"
 
@@ -12,4 +12,4 @@ fabric-loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabricLo
 fabric-api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric" }
 
 [plugins]
-loomID = { id = "fabric-loom", version.ref = "loom" }
+loomID = { id = "net.fabricmc.fabric-loom", version.ref = "loom" }
