@@ -4,7 +4,7 @@ plugins {
 }
 
 group = libs.versions.mavenGroup.get()
-version - libs.versions.modVersion.get()
+version = libs.versions.modVersion.get()
 
 def modProperties = [
 	"version": version,
@@ -48,6 +48,7 @@ tasks.named('jar', Jar) {
 		rename { "${it}_${base.archivesName.get()}" }
 	}
 }
+
 
 
 
