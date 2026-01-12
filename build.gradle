@@ -41,7 +41,7 @@ tasks.named('processResources', ProcessResources).configure {
 
 tasks.withType(JavaCompile).configureEach {
 	options.release.set(libs.versions.java.get().toInteger())
-	options.encoding.set("UTF-8")
+	options.encoding = "UTF-8"
 }
 
 tasks.named('jar', Jar) {
@@ -50,6 +50,7 @@ tasks.named('jar', Jar) {
 		rename { "${it}_${archiveName.get()}" }
 	}
 }
+
 
 
 
