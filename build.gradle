@@ -50,15 +50,3 @@ tasks.named('jar', Jar) {
 		rename { "${it}_${archiveName.get()}" }
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
