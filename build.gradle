@@ -6,23 +6,15 @@ plugins {
 group = libs.versions.mavenGroup.get()
 version = libs.versions.modVersion.get()
 
-def modProperties = [
-	"version": version,
-	"minecraftVersion": libs.versions.minecraft.get(),
-	"loaderVersion": libs.versions.fabricLoader.get(),
-	"javaVersion": libs.versions.java.get().toInteger(),
-	"packFormat": libs.versions.pack.get()
-]
+base {
+	archivesName.set("${libs.versions.modName.get()}-${libs.versions.minecraft.get()}")
+}
 
 java {
 	toolchain {
-		languageVersion.set(JavaLanguageVersion.of(modProperties.javaVersion))
+		languageVersion.set(JavaLanguageVersion.of(libs.versions.java.get()))
 		vendor.set(JvmVendorSpec.ADOPTIUM)
 	}
-}
-
-base {
-	archivesName.set("${libs.versions.modName.get()}-${modProperties.minecraftVersion}")
 }
 
 dependencies {
@@ -31,7 +23,15 @@ dependencies {
 	implementation libs.fabric.api
 }
 
-tasks.named('processResources', ProcessResources).configure {   
+tasks.named('processResources', ProcessResources).configure {
+	def modProperties = [
+		"version": version,
+		"minecraftVersion": libs.versions.minecraft.get(),
+		"loaderVersion": libs.versions.fabricLoader.get(),
+		"javaVersion": libs.versions.java.get().toInteger(),
+		"packFormat": libs.versions.pack.get()
+	]
+	
     inputs.properties(modProperties)
 
     filesMatching(["fabric.mod.json", "**/pack.mcmeta"]) {
@@ -41,6 +41,7 @@ tasks.named('processResources', ProcessResources).configure {
 
 tasks.withType(JavaCompile).configureEach {
 	options.release.set(libs.versions.java.get().toInteger())
+	options.encoding.set("UTF-8")
 }
 
 tasks.named('jar', Jar) {
@@ -49,6 +50,7 @@ tasks.named('jar', Jar) {
 		rename { "${it}_${archiveName.get()}" }
 	}
 }
+
 
 
 
