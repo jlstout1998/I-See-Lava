@@ -44,10 +44,12 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 tasks.named('jar', Jar) {
+	def archiveName = archiveBaseName
 	from("LICENSE") {
-		rename { "${it}_${base.archivesName.get()}" }
+		rename { "${it}_${archiveName.get()}" }
 	}
 }
+
 
 
 
