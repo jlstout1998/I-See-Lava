@@ -1,4 +1,8 @@
 [versions]
+modVersion = "1.2.0"
+mavenGroup = "mod.azure.iseelava"
+modName = "iseelava"
+
 java = "25"
 minecraft = "26.1-snapshot-2"
 pack = "76"
