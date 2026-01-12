@@ -16,13 +16,13 @@ def modProperties = [
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(modProperties.javaVersion)
-		vendor = JvmVendorSpec.ADOPTIUM
+		languageVersion.set(JavaLanguageVersion.of(modProperties.javaVersion))
+		vendor.set(JvmVendorSpec.ADOPTIUM)
 	}
 }
 
 base {
-	archivesName = "${libs.versions.modName.get()}-${modProperties.minecraftVersion}"
+	archivesName.set("${libs.versions.modName.get()}-${modProperties.minecraftVersion}")
 }
 
 dependencies {
@@ -48,6 +48,7 @@ tasks.named('jar', Jar) {
 		rename { "${it}_${base.archivesName.get()}" }
 	}
 }
+
 
 
 
