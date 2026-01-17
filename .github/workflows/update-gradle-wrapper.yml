@@ -1,5 +1,9 @@
 name: Update Gradle Wrapper
 
+permissions:
+  contents: write
+  pull-requests: write
+
 on:
   workflow_dispatch:
 
