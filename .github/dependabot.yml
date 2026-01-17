@@ -1,10 +1,52 @@
 version: 2
+
 updates:
+  # -------------------------
+  # Gradle dependencies
+  # -------------------------
   - package-ecosystem: "gradle"
-    directory: "/"              # Root directory (where your build.gradle is)
+    directory: "/"
     schedule:
-      interval: "monthly"       # Options: "daily", "weekly", "monthly"
-      time: "04:00"             # Optional: UTC time
+      interval: "monthly"
+      time: "04:00"
+
+    # Group updates by risk level
+    groups:
+      gradle-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"
+      gradle-major:
+        update-types:
+          - "major"
+
     open-pull-requests-limit: 2
+
     commit-message:
-      prefix: "deps"
+      prefix: "chore(deps)"
+
+    labels:
+      - "dependencies"
+      - "gradle"
+
+  # -------------------------
+  # GitHub Actions
+  # -------------------------
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      time: "04:00"
+
+    # Group all action updates together
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+    commit-message:
+      prefix: "chore(ci)"
+
+    labels:
+      - "dependencies"
+      - "github-actions"
