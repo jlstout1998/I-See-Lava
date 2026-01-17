@@ -31,7 +31,7 @@ jobs:
       uses: gradle/actions/setup-gradle@v5
 
     - name: Build with Gradle
-      run: ./gradlew build --build-cache --warning-mode all
+      run: ./gradlew build --no-daemon --build-cache --warning-mode summary
 
     - uses: actions/upload-artifact@v6
       with:
