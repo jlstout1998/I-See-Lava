@@ -26,7 +26,6 @@ jobs:
         java-version: '25'
         distribution: 'temurin'
         check-latest: true
-        cache: 'false'
 
     - name: Set GRADLE_USER_HOME
       run: echo "GRADLE_USER_HOME=$HOME/.gradle" >> $GITHUB_ENV
