@@ -1,5 +1,5 @@
 plugins {
-	id 'java-library'
+	`java-library`
 	alias(libs.plugins.loomID) // Fabric Loom
 }
 
@@ -22,40 +22,41 @@ java {
 
 // Essential Minecraft and Fabric dependencies
 dependencies {
-	minecraft libs.minecraft
-	implementation libs.fabric.loader
-	implementation libs.fabric.api
+	minecraft(libs.minecraft)
+	implementation(libs.fabric.loader)
+	implementation(libs.fabric.api)
 }
 
 // Replaces placeholders in fabric.mod.json and pack.mcmeta with variables defined in gradle/libs.versions.toml
-tasks.named('processResources', ProcessResources).configure {
-	def modProperties = [
-		"version": version,
-		"minecraftVersion": libs.versions.minecraft.get(),
-		"loaderVersion": libs.versions.fabricLoader.get(),
-		"javaVersion": libs.versions.java.get().toInteger(),
-		"packFormat": libs.versions.pack.get()
+tasks.processResources {
+	val modProperties = mapOf(
+		"version" to version,
+		"minecraftVersion" to libs.versions.minecraft.get(),
+		"loaderVersion" to libs.versions.fabricLoader.get(),
+		"javaVersion" to libs.versions.java.get().toInt(),
+		"packFormat" to libs.versions.pack.get()
 	]
 	
     inputs.properties(modProperties)
 
 	// Apply the variables to the JSON and Metadata files
-    filesMatching(["fabric.mod.json", "**/pack.mcmeta"]) {
-        expand modProperties
+    filesMatching(listOf("fabric.mod.json", "**/pack.mcmeta")) {
+        expand(modProperties)
     }
 }
 
 // Ensure the compiler targets the specific Java version and uses UTF-8
-tasks.withType(JavaCompile).configureEach {
-	options.release.set(libs.versions.java.get().toInteger())
+tasks.withType<JavaCompile>().configureEach {
+	options.release.set(libs.versions.java.get().toInt())
 	options.encoding = "UTF-8"
 }
 
 // Rename the LICENSE file in the final JAR
-tasks.named('jar', Jar) {
-	def archiveName = archiveBaseName
+tasks.jar {
+	val archiveNameProvider = archiveBaseName
 	from("LICENSE") {
-		rename { "${it}_${archiveName.get()}" }
+		rename { filename -> "${filename}_${archiveNameProvider.get()}" }
 	}
 }
+
 
