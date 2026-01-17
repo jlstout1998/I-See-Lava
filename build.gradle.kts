@@ -35,7 +35,7 @@ tasks.processResources {
 		"loaderVersion" to libs.versions.fabricLoader.get(),
 		"javaVersion" to libs.versions.java.get().toInt(),
 		"packFormat" to libs.versions.pack.get()
-	]
+	)
 	
     inputs.properties(modProperties)
 
@@ -58,5 +58,6 @@ tasks.jar {
 		rename { filename -> "${filename}_${archiveNameProvider.get()}" }
 	}
 }
+
 
 
