@@ -1,11 +1,11 @@
 name: Update Gradle Wrapper
 
+on:
+  workflow_dispatch:
+
 permissions:
   contents: write
   pull-requests: write
-
-on:
-  workflow_dispatch:
 
 jobs:
   update-gradle-wrapper:
