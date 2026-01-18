@@ -25,6 +25,7 @@ updates:
       - dependency-name: "com.mojang:minecraft"
       - dependency-name: "net.fabricmc:fabric-loader"
       - dependency-name: "net.fabricmc.fabric-api:fabric-api"
+      - dependency-name: "net.fabricmc.fabric-loom"
 
     open-pull-requests-limit: 2
 
