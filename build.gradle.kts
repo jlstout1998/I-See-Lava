@@ -4,18 +4,18 @@ plugins {
 }
 
 // Project identification pulled from gradle/libs.versions.toml
-group = libs.versions.mavenGroup.get()
-version = libs.versions.modVersion.get()
+group = libs.versions.mavenGroup
+version = libs.versions.modVersion
 
 // Sets the output filename format
 base {
-	archivesName.set("${libs.versions.modName.get()}-${libs.versions.minecraft.get()}")
+	archivesName.set(libs.versions.modName.zip(libs.versions.minecraft) { name, mc -> "$name-$mc" })
 }
 
 // Automatically downloads and uses the correct Java version for this project
 java {
 	toolchain {
-		languageVersion.set(JavaLanguageVersion.of(libs.versions.java.get()))
+		languageVersion.set(libs.versions.java.map { JavaLanguageVersion.of(it) })
 		vendor.set(JvmVendorSpec.ADOPTIUM)
 	}
 }
@@ -31,10 +31,10 @@ dependencies {
 tasks.processResources {
 	val modProperties = mapOf(
 		"version" to version,
-		"minecraftVersion" to libs.versions.minecraft.get(),
-		"loaderVersion" to libs.versions.fabricLoader.get(),
-		"javaVersion" to libs.versions.java.get().toInt(),
-		"packFormat" to libs.versions.pack.get()
+		"minecraftVersion" to libs.versions.minecraft,
+		"loaderVersion" to libs.versions.fabricLoader,
+		"javaVersion" to libs.versions.java.map(String::toInt),
+		"packFormat" to libs.versions.pack
 	)
 	
     inputs.properties(modProperties)
@@ -47,17 +47,17 @@ tasks.processResources {
 
 // Ensure the compiler targets the specific Java version and uses UTF-8
 tasks.withType<JavaCompile>().configureEach {
-	options.release.set(libs.versions.java.get().toInt())
+	options.release.set(libs.versions.java.map { it.toInt() })
 	options.encoding = "UTF-8"
 }
 
 // Rename the LICENSE file in the final JAR
 tasks.jar {
-	val archiveNameProvider = archiveBaseName
 	from("LICENSE") {
-		rename { filename -> "${filename}_${archiveNameProvider.get()}" }
+		rename { "${it}_${archiveBaseName.get()}" }
 	}
 }
+
 
 
 
