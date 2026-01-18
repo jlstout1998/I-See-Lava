@@ -4,7 +4,7 @@ plugins {
 }
 
 // Project identification pulled from gradle/libs.versions.toml
-group = libs.versions.mavenGroup
+group = libs.versions.mavenGroup.get()
 version = libs.versions.modVersion.get()
 
 // Sets the output filename format
@@ -15,7 +15,7 @@ base {
 // Automatically downloads and uses the correct Java version for this project
 java {
 	toolchain {
-		languageVersion.set(libs.versions.java.map { JavaLanguageVersion.of(it) })
+		languageVersion.set(libs.versions.java.get())
 		vendor.set(JvmVendorSpec.ADOPTIUM)
 	}
 }
@@ -31,10 +31,10 @@ dependencies {
 tasks.processResources {
 	val modProperties = mapOf(
 		"version" to version,
-		"minecraftVersion" to libs.versions.minecraft,
-		"loaderVersion" to libs.versions.fabricLoader,
-		"javaVersion" to libs.versions.java.map(String::toInt),
-		"packFormat" to libs.versions.pack
+		"minecraftVersion" to libs.versions.minecraft.get(),
+		"loaderVersion" to libs.versions.fabricLoader.get(),
+		"javaVersion" to libs.versions.java.get().toInt(),
+		"packFormat" to libs.versions.pack.get()
 	)
 	
     inputs.properties(modProperties)
@@ -57,6 +57,7 @@ tasks.jar {
 		rename { "${it}_${archiveBaseName.get()}" }
 	}
 }
+
 
 
 
