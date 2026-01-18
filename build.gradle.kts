@@ -15,7 +15,7 @@ base {
 // Automatically downloads and uses the correct Java version for this project
 java {
 	toolchain {
-		languageVersion.set(libs.versions.java.get())
+		languageVersion.set(JavaLanguageVersion.of(libs.versions.java.get()))
 		vendor.set(JvmVendorSpec.ADOPTIUM)
 	}
 }
@@ -47,7 +47,7 @@ tasks.processResources {
 
 // Ensure the compiler targets the specific Java version and uses UTF-8
 tasks.withType<JavaCompile>().configureEach {
-	options.release.set(libs.versions.java.map { it.toInt() })
+	options.release.set(libs.versions.java.get().toInt())
 	options.encoding = "UTF-8"
 }
 
@@ -57,3 +57,4 @@ tasks.jar {
 		rename { "${it}_${archiveBaseName.get()}" }
 	}
 }
+
