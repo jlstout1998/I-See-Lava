@@ -57,15 +57,3 @@ tasks.jar {
 		rename { "${it}_${archiveBaseName.get()}" }
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
