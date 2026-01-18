@@ -20,6 +20,12 @@ updates:
         update-types:
           - "major"
 
+    # Ignore Minecraft / Fabric dependencies
+    ignore:
+      - dependency-name: "com.mojang:minecraft"
+      - dependency-name: "net.fabricmc:fabric-loader"
+      - dependency-name: "net.fabricmc.fabric-api:fabric-api"
+
     open-pull-requests-limit: 2
 
     commit-message:
