@@ -41,7 +41,7 @@ tasks.processResources {
 
 	// Apply the variables to the JSON and Metadata files
     filesMatching(listOf("fabric.mod.json", "**/pack.mcmeta")) {
-        expand(modProperties)
+        expand(modProperties.mapValues { it.value.get() })
     }
 }
 
@@ -57,6 +57,7 @@ tasks.jar {
 		rename { "${it}_${archiveBaseName.get()}" }
 	}
 }
+
 
 
 
