@@ -5,7 +5,7 @@ plugins {
 
 // Project identification pulled from gradle/libs.versions.toml
 group = libs.versions.mavenGroup
-version = libs.versions.modVersion
+version = libs.versions.modVersion.get()
 
 // Sets the output filename format
 base {
@@ -58,6 +58,7 @@ tasks.jar {
 		rename { filename -> "${filename}_${archiveNameProvider.get()}" }
 	}
 }
+
 
 
 
