@@ -53,11 +53,11 @@ tasks.withType<JavaCompile>().configureEach {
 
 // Rename the LICENSE file in the final JAR
 tasks.jar {
-	val archiveNameProvider = archiveBaseName
 	from("LICENSE") {
-		rename { filename -> "${filename}_${archiveNameProvider.get()}" }
+		rename { "${it}_${archiveBaseName.get()}" }
 	}
 }
+
 
 
 
