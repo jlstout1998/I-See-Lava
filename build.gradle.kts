@@ -9,7 +9,7 @@ version = libs.versions.modVersion
 
 // Sets the output filename format
 base {
-	archivesName.set(libs.versions.modName.zip(libs.versions.minecraft) { name, mc -> "$name-$mc" })
+	archivesName.set("${libs.versions.modName.get()}-${libs.versions.minecraft.get()}")
 }
 
 // Automatically downloads and uses the correct Java version for this project
@@ -41,7 +41,7 @@ tasks.processResources {
 
 	// Apply the variables to the JSON and Metadata files
     filesMatching(listOf("fabric.mod.json", "**/pack.mcmeta")) {
-        expand(modProperties.mapValues { (it.value as Provider<*>).get() })
+        expand(modProperties)
     }
 }
 
@@ -57,6 +57,7 @@ tasks.jar {
 		rename { "${it}_${archiveBaseName.get()}" }
 	}
 }
+
 
 
 
