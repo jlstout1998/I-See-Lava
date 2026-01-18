@@ -9,7 +9,7 @@ version = libs.versions.modVersion.get()
 
 // Sets the output filename format
 base {
-	archivesName.set("${libs.versions.modName.get()}-${libs.versions.minecraft.get()}")
+	archivesName.set(libs.versions.modName.zip(libs.versions.minecraft) { name, mc -> "$name-$mc" })
 }
 
 // Automatically downloads and uses the correct Java version for this project
@@ -58,6 +58,7 @@ tasks.jar {
 		rename { filename -> "${filename}_${archiveNameProvider.get()}" }
 	}
 }
+
 
 
 
