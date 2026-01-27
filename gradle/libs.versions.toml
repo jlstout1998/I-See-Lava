@@ -6,12 +6,12 @@ modName = "iseelava"
 
 # Toolchain and Environment
 java = "25"
-minecraft = "26.1-snapshot-4"
-pack = "[78, 1]"            # Resource Pack Version
+minecraft = "26.1-snapshot-5"
+pack = "[79, 0]"            # Resource Pack Version
 
 # Fabric Components
 loom = "1.15.3"             # Fabric Loom Version
-fabric = "0.142.2+26.1"     # Fabric API Version
+fabric = "0.142.3+26.1"     # Fabric API Version
 fabricLoader = "0.18.4"     # Fabric Loader Version
 
 [libraries]
