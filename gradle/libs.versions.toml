@@ -10,7 +10,7 @@ minecraft = "26.1-snapshot-4"
 pack = "[78, 1]"            # Resource Pack Version
 
 # Fabric Components
-loom = "1.15.2"             # Fabric Loom Version
+loom = "1.15.3"             # Fabric Loom Version
 fabric = "0.142.2+26.1"     # Fabric API Version
 fabricLoader = "0.18.4"     # Fabric Loader Version
 
