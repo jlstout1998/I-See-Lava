@@ -1,8 +1,3 @@
 v.1.2.0
 
-- Updated minecraft version for use on 26.1 Snapshot-5
-
-
-
-
-
+- Updated minecraft version for use on 26.1 Snapshot-6
