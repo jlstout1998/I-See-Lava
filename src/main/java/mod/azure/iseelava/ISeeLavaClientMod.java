@@ -22,7 +22,7 @@ public class ISeeLavaClientMod implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		// Make lava translucent by assigning it to the translucent render layer
-		// ChunkSectionLayerMapImpl.putFluids(ChunkSectionLayer.TRANSLUCENT, Fluids.LAVA, Fluids.FLOWING_LAVA);
+		// ChunkSectionLayerMap.putFluids(ChunkSectionLayer.TRANSLUCENT, Fluids.LAVA, Fluids.FLOWING_LAVA);
 
 		 // Register the built-in resource pack for translucent lava
 		Optional<ModContainer> modContainer = FabricLoader.getInstance().getModContainer(ID);
