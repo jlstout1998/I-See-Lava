@@ -46,7 +46,7 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build --no-daemon --build-cache --warning-mode summary
 
-    - uses: actions/upload-artifact@v6
+    - uses: actions/upload-artifact@v7
       with:
         name: Mod-JARs
         path: build/libs/*.jar
