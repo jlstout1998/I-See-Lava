@@ -10,7 +10,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 // import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.client.resources.model.SpriteId;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.resources.Identifier;
 
 import java.util.Optional;
