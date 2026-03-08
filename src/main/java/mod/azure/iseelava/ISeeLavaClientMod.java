@@ -10,7 +10,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 // import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.resources.Identifier;
 
 import java.util.Optional;
@@ -32,6 +31,6 @@ public class ISeeLavaClientMod implements ClientModInitializer {
 		modContainer.ifPresent(container -> ResourceLoader.registerBuiltinPack(TRANSLUCENT_LAVA_RP, container, PackActivationType.DEFAULT_ENABLED));
 
 		// Register a FluidRenderHandler for lava using alpha textures
-		FluidRenderHandlerRegistry.INSTANCE.register(Fluids.LAVA, Fluids.FLOWING_LAVA, new SimpleFluidRenderHandler(SpriteId.of(new Identifier("iseelava:block/lava_still")), SpriteId.of(new Identifier("iseelava:block/lava_flow"))));
+		FluidRenderHandlerRegistry.INSTANCE.register(Fluids.LAVA, Fluids.FLOWING_LAVA, new SimpleFluidRenderHandler(new Identifier("iseelava:block/lava_still"), new Identifier("iseelava:block/lava_flow")));
 	}
 }
