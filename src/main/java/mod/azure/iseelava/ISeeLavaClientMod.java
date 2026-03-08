@@ -31,6 +31,6 @@ public class ISeeLavaClientMod implements ClientModInitializer {
 		modContainer.ifPresent(container -> ResourceLoader.registerBuiltinPack(TRANSLUCENT_LAVA_RP, container, PackActivationType.DEFAULT_ENABLED));
 
 		// Register a FluidRenderHandler for lava using alpha textures
-		FluidRenderHandlerRegistry.INSTANCE.register(Fluids.LAVA, Fluids.FLOWING_LAVA, new SimpleFluidRenderHandler(new Identifier(ID, "block/lava_still"), new Identifier(ID, "block/lava_flow")));
+		FluidRenderHandlerRegistry.INSTANCE.register(Fluids.LAVA, Fluids.FLOWING_LAVA, new SimpleFluidRenderHandler(new Identifier("minecraft:block/lava_still"), new Identifier("minecraft:block/lava_flow")));
 	}
 }
