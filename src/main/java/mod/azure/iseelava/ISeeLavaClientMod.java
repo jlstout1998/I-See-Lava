@@ -28,8 +28,8 @@ public class ISeeLavaClientMod implements ClientModInitializer {
 
 		// Register lava with a translucent fluid model and fallback handler
         FluidModel.Unbaked model = new FluidModel.Unbaked(
-                new Identifier("minecraft", "block/lava_still"),
-                new Identifier("minecraft", "block/lava_flow"),
+                Identifier.fromNamespaceAndPath("minecraft", "block/lava_still"),
+                Identifier.fromNamespaceAndPath("minecraft", "block/lava_flow"),
                 null, // no overlay
                 null  // no tint
         );
