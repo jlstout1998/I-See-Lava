@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.renderer.block.FluidModel;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.material.Fluids;
 
@@ -27,14 +28,17 @@ public class ISeeLavaClientMod implements ClientModInitializer {
 		modContainer.ifPresent(container -> ResourceLoader.registerBuiltinPack(TRANSLUCENT_LAVA_RP, container, PackActivationType.DEFAULT_ENABLED));
 
 		// Register lava with a translucent fluid model and fallback handler
-        FluidModel.Unbaked model = new FluidModel.Unbaked(
-                Identifier.fromNamespaceAndPath("minecraft", "block/lava_still"),
-                Identifier.fromNamespaceAndPath("minecraft", "block/lava_flow"),
-                null, // no overlay
-                null  // no tint
-        );
+		FluidModel.Unbaked model = new FluidModel.Unbaked(
+        		new Material(Identifier.parse("minecraft:block/lava_still")),
+        		new Material(Identifier.parse("minecraft:block/lava_flow")),
+       			null,   // overlay material
+        		null    // tint source
+		);
 
-        FluidRenderHandler handler = FluidRenderingRegistry.getOverride(Fluids.LAVA);
-        FluidRenderingRegistry.register(Fluids.LAVA, Fluids.FLOWING_LAVA, model, handler != null ? handler : FluidRenderHandler::renderFluid);
+		FluidRenderHandler handler = FluidRenderingRegistry.getOverride(Fluids.LAVA);
+		if (handler == null) {
+    		handler = FluidRenderingRegistry.get(Fluids.LAVA);
+		}
+		FluidRenderingRegistry.register(Fluids.LAVA, Fluids.FLOWING_LAVA, model, handler);
 	}
 }
