@@ -11,7 +11,7 @@ pack = "[84, 0]"            # Resource Pack Version
 
 # Fabric Components
 loom = "1.15.5"             # Fabric Loom Version
-fabric = "0.143.13+26.1"     # Fabric API Version
+fabric = "0.143.14+26.1"    # Fabric API Version
 fabricLoader = "0.18.4"     # Fabric Loader Version
 
 [libraries]
