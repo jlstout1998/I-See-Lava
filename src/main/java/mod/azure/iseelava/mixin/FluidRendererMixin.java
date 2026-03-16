@@ -1,8 +1,11 @@
 package mod.azure.iseelava.mixin;
 
 import mod.azure.iseelava.LavaConfig;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.client.renderer.block.FluidRenderer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.ARGB;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,15 +19,14 @@ public class FluidRendererMixin {
         method = "tesselate",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/renderer/block/FluidRenderer;addFace"
+            target = "Lnet/minecraft/util/ARGB;scaleRGB(IF)I"
         ),
-        index = 20,
-        remap = true
+        index = 0
     )
-    private int iseelava$modifyColor(int color) {
-        
-        FluidState fluidState = LavaConfig.currentFluidState;
-        if (fluidState == null || fluidState.getType() != Fluids.LAVA) {
+    private int modifyLavaColor(int color, BlockAndTintGetter level, BlockPos pos, FluidRenderer.Output output, BlockState blockState, FluidState fluidState) {
+
+        // Only modify lava fluids
+        if (fluidState == null || !fluidState.isSourceOfType(Fluids.LAVA)) {
             return color;
         }
 
@@ -33,7 +35,7 @@ public class FluidRendererMixin {
         int g = ARGB.green(color);
         int b = ARGB.blue(color);
 
-        alpha = (int)(alpha * LavaConfig.OPACITY);
+        alpha = (int) (alpha * LavaConfig.OPACITY);
 
         return ARGB.color(alpha, r, g, b);
     }
