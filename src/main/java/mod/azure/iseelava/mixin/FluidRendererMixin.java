@@ -1,11 +1,8 @@
 package mod.azure.iseelava.mixin;
 
 import mod.azure.iseelava.LavaConfig;
-import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.client.renderer.block.FluidRenderer;
-import net.minecraft.core.BlockPos;
 import net.minecraft.util.ARGB;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,20 +20,15 @@ public class FluidRendererMixin {
         ),
         index = 0
     )
-    private int modifyLavaColor(int color, BlockAndTintGetter level, BlockPos pos, FluidRenderer.Output output, BlockState blockState, FluidState fluidState) {
+    private int modifyLavaColor(int color, FluidState fluidState) {
 
         // Only modify lava fluids
         if (fluidState == null || !fluidState.isSourceOfType(Fluids.LAVA)) {
             return color;
         }
 
-        int alpha = ARGB.alpha(color);
-        int r = ARGB.red(color);
-        int g = ARGB.green(color);
-        int b = ARGB.blue(color);
+        int alpha = Math.clamp((int)(ARGB.alpha(color) * LavaConfig.OPACITY), 0, 255);
 
-        alpha = (int) (alpha * LavaConfig.OPACITY);
-
-        return ARGB.color(alpha, r, g, b);
+        return ARGB.color(alpha, color & 0xFFFFFF);
     }
 }
