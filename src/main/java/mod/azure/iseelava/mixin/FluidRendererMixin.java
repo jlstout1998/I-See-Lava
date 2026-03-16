@@ -1,6 +1,5 @@
 package mod.azure.iseelava.mixin;
 
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import mod.azure.iseelava.LavaConfig;
 import net.minecraft.client.renderer.block.FluidRenderer;
 import net.minecraft.util.ARGB;
@@ -9,7 +8,6 @@ import net.minecraft.world.level.material.Fluids;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FluidRenderer.class)
 public class FluidRendererMixin {
@@ -23,9 +21,10 @@ public class FluidRendererMixin {
         index = 20,
         remap = true
     )
-    private int iseelava$modifyColor(int color, VertexConsumer builder, float... unused, FluidState fluidState) {
-
-        if (fluidState.getType() != Fluids.LAVA) {
+    private int iseelava$modifyColor(int color) {
+        
+        FluidState fluidState = LavaConfig.currentFluidState;
+        if (fluidState == null || fluidState.getType() != Fluids.LAVA) {
             return color;
         }
 
