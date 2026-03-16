@@ -24,7 +24,7 @@
 	},
 	"mixins": [
 		"iseelava.mixins.json"
-	]
+	],
 	"depends": {
 		"fabricloader": ">=${loaderVersion}",
 		"fabric-api": "*",
