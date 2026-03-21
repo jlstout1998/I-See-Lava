@@ -46,7 +46,7 @@ public class FluidRendererMixin {
         FluidState fluidState = capturedFluid.get();
 
         // Only modify lava fluids
-        if (fluidState == null || !fluidState.isSourceOfType(Fluids.LAVA)) {
+        if (fluidState == null || !fluidState.getType().isSame(Fluids.LAVA)) {
             return color;
         }
 
