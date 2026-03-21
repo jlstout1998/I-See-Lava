@@ -18,12 +18,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class FluidRendererMixin {
     /**
      * Stores the current FluidState being rendered.
-     *
-     * NOTE:
-     * This relies on the fact that tesselate() is currently called synchronously.
-     * If Mojang parallelizes chunk rendering further, this could become unsafe.
      */
-    private FluidState capturedFluid;
+    private static final ThreadLocal<FluidState> capturedFluid = ThreadLocal.withInitial(() -> null);
+    // private FluidState capturedFluid;
 
     @Inject(
         method = "tesselate",
@@ -37,7 +34,8 @@ public class FluidRendererMixin {
         FluidState fluidState,
         CallbackInfo ci
     ) {
-        this.capturedFluid = fluidState;
+        capturedFluid.set(fluidState);
+        // this.capturedFluid = fluidState;
     }
 
     @ModifyArg(
@@ -50,7 +48,8 @@ public class FluidRendererMixin {
     )
     private int modifyLavaColor(int color) {
 
-        FluidState fluidState = this.capturedFluid;
+        FluidState fluidState = capturedFluid.get();
+        // FluidState fluidState = this.capturedFluid;
 
         // Only apply effect to lava
         if (fluidState == null || !fluidState.getType().isSame(Fluids.LAVA)) {
