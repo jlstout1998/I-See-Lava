@@ -67,7 +67,7 @@ public class ModConfigScreen extends Screen {
 
     @Override
     public void onClose() {
-        Minecraft.getInstance().setScreen(null);
+        // Minecraft.getInstance().setScreen(null);
         super.onClose();
     }
 }
