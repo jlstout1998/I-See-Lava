@@ -25,13 +25,13 @@ public class ModConfigScreen extends Screen {
             @Override
             protected void updateMessage() {
                 // Update the opacity in LavaConfig
-                LavaConfig.OPACITY = (float) this.getValue();
+                LavaConfig.OPACITY = (float) this.value;
                 LavaConfig.saveConfig(); // Save to config file
             }
 
             @Override
             protected void applyValue() {
-                LavaConfig.OPACITY = (float) this.getValue(); // Update the opacity value
+                LavaConfig.OPACITY = (float) this.value; // Update the opacity value
                 LavaConfig.saveConfig(); // Save the updated value
             }
         };
