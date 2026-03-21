@@ -49,7 +49,9 @@ public class FluidRendererMixin {
         if (fluidState == null || !fluidState.getType().isSame(Fluids.LAVA)) {
             return color;
         }
-        
+
+        /*
+        // Dampen Bright Sides
         float opacity = LavaConfig.OPACITY;
         int r = (int)(ARGB.red(color) * opacity);
         int g = (int)(ARGB.green(color) * opacity);
@@ -57,28 +59,10 @@ public class FluidRendererMixin {
         int a = Math.clamp((int)(ARGB.alpha(color) * opacity), 0, 255);
         
         return ARGB.color(a, r, g, b);
+        */
 
-        /*
         int alpha = Math.clamp((int)(ARGB.alpha(color) * LavaConfig.OPACITY), 0, 255);
 
         return ARGB.color(alpha, color & 0xFFFFFF);
-        */
-
-    /*
-    @ModifyArg(
-        method = "tesselate",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/client/renderer/block/FluidRenderer;addFace(" +
-                     "Lcom/mojang/blaze3d/vertex/VertexConsumer;" +
-                     "FFFFFFFFFFFFFFFFFFFFFFFFIIZ" + // 20 floats, 2 ints, 1 boolean
-                     ")"
-        ),
-        index = 22 // last boolean parameter (addBackFace)
-    )
-    private boolean disableBackFaceForFlowingLava(boolean original) {
-        return currentFluid != null && currentFluid.getType().isSame(Fluids.LAVA) && !currentFluid.isSource();
-    */
-        
     }
 }
