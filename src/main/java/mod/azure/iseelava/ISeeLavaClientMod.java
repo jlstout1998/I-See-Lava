@@ -1,5 +1,6 @@
 package mod.azure.iseelava;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.loader.api.FabricLoader;
@@ -28,8 +29,11 @@ public class ISeeLavaClientMod implements ClientModInitializer {
         // Load the config on mod startup
         LavaConfig.loadConfig();
 
-        // Register the keybinding to open the config screen
-        configKey = KeyMappingHelper.registerKeyMapping(new KeyMapping("key.iseelava.config", GLFW.GLFW_KEY_C, "category.iseelava"));
+        // Register the category for key mappings
+        KeyCategory category = KeyCategory.register(Identifier.fromNamespaceAndPath(ID, "category"));
+
+        // Register the keybinding with a category
+        configKey = KeyMappingHelper.registerKeyMapping(new KeyMapping("key.iseelava.config", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, category));
     }
 
     // Check for key press on every tick
