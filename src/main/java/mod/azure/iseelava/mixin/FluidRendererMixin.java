@@ -62,7 +62,7 @@ public class FluidRendererMixin {
         */
 
         // Orginal Vanilla Code Look
-        int alpha = Math.clamp((int)(ARGB.alpha(color) * LavaConfig.OPACITY * 2), 0, 255);
+        int alpha = Math.clamp((int)(ARGB.alpha(color) * LavaConfig.OPACITY), 0, 255);
 
         return ARGB.color(alpha, color & 0xFFFFFF);
     }
