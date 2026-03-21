@@ -3,6 +3,7 @@ package mod.azure.iseelava;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mod.azure.iseelava.LavaConfig;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -38,10 +39,10 @@ public class ModConfigScreen extends Screen {
     }
 
     @Override
-    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
-        this.renderBackground(matrices);
-        super.render(matrices, mouseX, mouseY, delta);
-        opacitySlider.render(matrices, mouseX, mouseY, delta);
+    public void extractRenderState(GuiGraphicsExtractor matrices, int mouseX, int mouseY, float delta) {
+        this.extractBackground(matrices);
+        super.extractRenderState(matrices, mouseX, mouseY, delta);
+        opacitySlider.extractRenderState(matrices, mouseX, mouseY, delta);
     }
 
     @Override
