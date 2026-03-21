@@ -30,7 +30,7 @@ public class ISeeLavaClientMod implements ClientModInitializer {
         LavaConfig.loadConfig();
 
         // Register the category for key mappings
-        KeyCategory category = KeyCategory.register(Identifier.fromNamespaceAndPath(ID, "category"));
+        KeyMapping.Category category = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(ID, "category"));
 
         // Register the keybinding with a category
         configKey = KeyMappingHelper.registerKeyMapping(new KeyMapping("key.iseelava.config", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, category));
