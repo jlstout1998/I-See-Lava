@@ -40,7 +40,7 @@ public class ModConfigScreen extends Screen {
 
     @Override
     public void extractRenderState(GuiGraphicsExtractor matrices, int mouseX, int mouseY, float delta) {
-        this.extractBackground(matrices);
+        this.extractBackground(matrices, mouseX, mouseY, delta);
         super.extractRenderState(matrices, mouseX, mouseY, delta);
         opacitySlider.extractRenderState(matrices, mouseX, mouseY, delta);
     }
