@@ -16,18 +16,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FluidRenderer.class)
 public class FluidRendererMixin {
+    private static final ThreadLocal<FluidState> capturedFluid = new ThreadLocal<>();
 
-    // Store the fluid currently being tessellated
-    private FluidState currentFluid;
-
-    /**
-     * Capture the FluidState at the start of tesselation.
-     */
     @Inject(
         method = "tesselate",
         at = @At("HEAD")
     )
-    private void captureFluid(
+    private void captureFluidState(
         BlockAndTintGetter level,
         BlockPos pos,
         FluidRenderer.Output output,
@@ -35,12 +30,9 @@ public class FluidRendererMixin {
         FluidState fluidState,
         CallbackInfo ci
     ) {
-        this.currentFluid = fluidState;
+        capturedFluid.set(fluidState);
     }
 
-    /**
-     * Modify lava alpha/opacity only.
-     */
     @ModifyArg(
         method = "tesselate",
         at = @At(
@@ -50,13 +42,18 @@ public class FluidRendererMixin {
         index = 0
     )
     private int modifyLavaColor(int color) {
-        if (currentFluid == null || !currentFluid.getType().isSame(Fluids.LAVA)) {
+
+        FluidState fluidState = capturedFluid.get();
+
+        // Only modify lava fluids
+        if (fluidState == null || !fluidState.isSourceOfType(Fluids.LAVA)) {
+        if (fluidState == null || !fluidState.getType().isSame(Fluids.LAVA)) {
             return color;
         }
 
         int alpha = Math.clamp((int)(ARGB.alpha(color) * LavaConfig.OPACITY), 0, 255);
+
         return ARGB.color(alpha, color & 0xFFFFFF);
-    }
 
     /*
     @ModifyArg(
