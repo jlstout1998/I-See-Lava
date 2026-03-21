@@ -16,13 +16,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FluidRenderer.class)
 public class FluidRendererMixin {
-    private static final ThreadLocal<FluidState> capturedFluid = new ThreadLocal<>();
 
+    // Store the fluid currently being tessellated
+    private FluidState currentFluid;
+
+    /**
+     * Capture the FluidState at the start of tesselation.
+     */
     @Inject(
         method = "tesselate",
         at = @At("HEAD")
     )
-    private void captureFluidState(
+    private void captureFluid(
         BlockAndTintGetter level,
         BlockPos pos,
         FluidRenderer.Output output,
@@ -30,9 +35,12 @@ public class FluidRendererMixin {
         FluidState fluidState,
         CallbackInfo ci
     ) {
-        capturedFluid.set(fluidState);
+        this.currentFluid = fluidState;
     }
-    
+
+    /**
+     * Modify lava alpha/opacity only.
+     */
     @ModifyArg(
         method = "tesselate",
         at = @At(
@@ -42,19 +50,17 @@ public class FluidRendererMixin {
         index = 0
     )
     private int modifyLavaColor(int color) {
-
-        FluidState fluidState = capturedFluid.get();
-
-        // Only modify lava fluids
-        if (fluidState == null || !fluidState.getType().isSame(Fluids.LAVA)) {
+        if (currentFluid == null || !currentFluid.getType().isSame(Fluids.LAVA)) {
             return color;
         }
 
         int alpha = Math.clamp((int)(ARGB.alpha(color) * LavaConfig.OPACITY), 0, 255);
-
         return ARGB.color(alpha, color & 0xFFFFFF);
     }
-    
+
+    /**
+     * Disable back face rendering for flowing lava only.
+     */
     @ModifyArg(
         method = "tesselate",
         at = @At(
@@ -67,13 +73,6 @@ public class FluidRendererMixin {
         index = 22 // index of addBackFace boolean in addFace call
     )
     private boolean disableBackFaceForFlowingLava(boolean original) {
-        FluidState fluidState = capturedFluid.get();
-
-        // Only disable back faces for flowing lava
-        if (fluidState != null && fluidState.getType().isSame(Fluids.LAVA)) {
-            return !(fluidState.getFlow(level, pos).x() == 0.0 && fluidState.getFlow(level, pos).z() == 0.0);
-        }
-
-        return original;
+        return currentFluid != null && currentFluid.getType().isSame(Fluids.LAVA) && !currentFluid.isSource();
     }
 }
