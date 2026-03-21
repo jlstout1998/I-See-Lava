@@ -25,7 +25,7 @@ public class LavaConfig {
         if (!CONFIG_FILE.exists()) return;
         
         try (FileReader reader = new FileReader(CONFIG_FILE)) {
-            JsonObject json = Gson.fromJson(reader, JsonObject.class);
+            JsonObject json = GSON.fromJson(reader, JsonObject.class);
             if (json != null && json.has("opacity")) {
                 OPACITY = json.get("opacity").getAsFloat();
             }
@@ -46,7 +46,7 @@ public class LavaConfig {
         json.addProperty("opacity", OPACITY);
 
         try (FileWriter writer = new FileWriter(CONFIG_FILE)) {
-            Gson.toJson(json, writer);
+            GSON.toJson(json, writer);
         } catch (IOException e) {
             e.printStackTrace();
         }
