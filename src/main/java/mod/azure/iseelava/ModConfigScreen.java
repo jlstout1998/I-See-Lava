@@ -52,7 +52,6 @@ public class ModConfigScreen extends Screen {
         
         // Since the opacity is applied to lava through the `FluidRendererMixin`, we can simply mark it as dirty
         // or trigger a refresh in the game world (this is more efficient than resetting the entire screen).
-        Minecraft.getInstance().gameRenderer.getMainRenderTarget().setDirty(); // Mark the render target as dirty
         Minecraft.getInstance().levelRenderer.allChanged(); // Notify that something changed in the world
     }
 
