@@ -41,6 +41,6 @@ public class ISeeLavaClientMod implements ClientModInitializer {
             if (configKey.isDown()) {
                 Minecraft.getInstance().setScreen(new ModConfigScreen()); // Open config screen
             }
-        })
+        });
     }
 }
