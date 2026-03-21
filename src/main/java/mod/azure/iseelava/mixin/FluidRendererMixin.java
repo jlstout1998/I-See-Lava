@@ -71,9 +71,9 @@ public class FluidRendererMixin {
 
         // Only disable back faces for flowing lava
         if (fluidState != null && fluidState.getType().isSame(Fluids.LAVA)) {
-            return !(fluidState.getFlowX() == 0.0 && fluidState.getFlowZ() == 0.0);
+            return !(fluidState.getFlow(level, pos).x() == 0.0 && fluidState.getFlow(level, pos).z() == 0.0);
         }
 
-        return original; // leave other fluids unchanged
+        return original;
     }
 }
