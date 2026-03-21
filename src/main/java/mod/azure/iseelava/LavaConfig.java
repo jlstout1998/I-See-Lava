@@ -20,7 +20,7 @@ public class LavaConfig {
     public static void loadConfig() {
         if (CONFIG_FILE.exists()) {
             try (FileReader reader = new FileReader(CONFIG_FILE)) {
-                JsonObject json = Gson().fromJson(reader, JsonObject.class);
+                JsonObject json = Gson.fromJson(reader, JsonObject.class);
                 // Load the opacity value
                 OPACITY = json.has("opacity") ? json.get("opacity").getAsFloat() : 1.0f;
             } catch (IOException e) {
@@ -35,7 +35,7 @@ public class LavaConfig {
         json.addProperty("opacity", OPACITY);
 
         try (FileWriter writer = new FileWriter(CONFIG_FILE)) {
-            Gson().toJson(json, writer);
+            Gson.toJson(json, writer);
         } catch (IOException e) {
             e.printStackTrace();
         }
