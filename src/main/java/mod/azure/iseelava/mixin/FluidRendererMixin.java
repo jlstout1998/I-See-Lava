@@ -50,7 +50,6 @@ public class FluidRendererMixin {
             return color;
         }
 
-        /*
         // Dampen Bright Sides
         float opacity = LavaConfig.OPACITY;
         int r = (int)(ARGB.red(color) * opacity);
@@ -59,10 +58,12 @@ public class FluidRendererMixin {
         int a = Math.clamp((int)(ARGB.alpha(color) * opacity), 0, 255);
         
         return ARGB.color(a, r, g, b);
-        */
 
+        /*
+        // Orginal Vanilla Code Look
         int alpha = Math.clamp((int)(ARGB.alpha(color) * LavaConfig.OPACITY), 0, 255);
 
         return ARGB.color(alpha, color & 0xFFFFFF);
+        */
     }
 }
