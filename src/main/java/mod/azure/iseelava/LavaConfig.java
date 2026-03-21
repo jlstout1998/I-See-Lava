@@ -1,6 +1,41 @@
 package mod.azure.iseelava;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class LavaConfig {
-    /** Opacity factor for lava (0.0 = fully transparent, 1.0 = fully opaque) */
-    public static final float OPACITY = 1.0f; // adjust as desired
+    // Opacity value for lava (0.0 to 1.0)
+    public static float OPACITY = 1.0f;
+
+    private static final File CONFIG_FILE = new File("config/iseelava_config.json");
+
+    // Load the configuration from the file
+    public static void loadConfig() {
+        if (CONFIG_FILE.exists()) {
+            try (FileReader reader = new FileReader(CONFIG_FILE)) {
+                JsonObject json = new Gson().fromJson(reader, JsonObject.class);
+                // Load the opacity value
+                OPACITY = json.has("opacity") ? json.get("opacity").getAsFloat() : 1.0f;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // Save the opacity value to the configuration file
+    public static void saveConfig() {
+        JsonObject json = new JsonObject();
+        json.addProperty("opacity", OPACITY);
+
+        try (FileWriter writer = new FileWriter(CONFIG_FILE)) {
+            new Gson().toJson(json, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
