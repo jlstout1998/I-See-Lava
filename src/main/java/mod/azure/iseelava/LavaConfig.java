@@ -9,28 +9,39 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class LavaConfig {
-    // Opacity value for lava (0.0 to 1.0)
+    // 0.0 = fully invisible, 1.0 = fully opaque
     public static float OPACITY = 0.55f;
 
+    // Config file stored in the standard Fabric config directory.
     private static final File CONFIG_FILE = new File("config/iseelava_config.json");
     
     private static final Gson GSON = new Gson();
 
-    // Load the configuration from the file
+    /**
+     * Loads configuration from disk.
+     * If the file does not exist or is malformed, defaults are preserved.
+     */
     public static void loadConfig() {
-        if (CONFIG_FILE.exists()) {
-            try (FileReader reader = new FileReader(CONFIG_FILE)) {
-                JsonObject json = Gson.fromJson(reader, JsonObject.class);
-                // Load the opacity value
-                OPACITY = json.has("opacity") ? json.get("opacity").getAsFloat() : 1.0f;
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (!CONFIG_FILE.exists()) return;
+        
+        try (FileReader reader = new FileReader(CONFIG_FILE)) {
+            JsonObject json = Gson.fromJson(reader, JsonObject.class);
+            if (json != null && json.has("opacity")) {
+                OPACITY = json.get("opacity").getAsFloat();
             }
+        } catch (IOException e) {
+            // Log instead of crashing — config errors should not break the game.
+            e.printStackTrace();
         }
     }
 
-    // Save the opacity value to the configuration file
+    /**
+     * Saves current configuration values to disk.
+     */
     public static void saveConfig() {
+        // Ensure config directory exists before writing.
+        CONFIG_FILE.getParentFile().mkdirs();
+        
         JsonObject json = new JsonObject();
         json.addProperty("opacity", OPACITY);
 
