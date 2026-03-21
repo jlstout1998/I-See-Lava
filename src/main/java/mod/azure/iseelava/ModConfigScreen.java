@@ -27,12 +27,20 @@ public class ModConfigScreen extends Screen {
                 // Update the opacity in LavaConfig
                 LavaConfig.OPACITY = (float) this.value;
                 LavaConfig.saveConfig(); // Save to config file
+
+                // Trigger a screen update to re-render lava with new opacity
+                ModConfigScreen.this.extractBackground(); // Re-render background
+                ModConfigScreen.this.extractRenderState(); // Re-render the screen
             }
 
             @Override
             protected void applyValue() {
                 LavaConfig.OPACITY = (float) this.value; // Update the opacity value
                 LavaConfig.saveConfig(); // Save the updated value
+
+                // Trigger a screen update to re-render lava with new opacity
+                ModConfigScreen.this.extractBackground(); // Re-render background
+                ModConfigScreen.this.extractRenderState(); // Re-render the screen
             }
         };
         this.addRenderableWidget(opacitySlider);
