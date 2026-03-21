@@ -18,6 +18,8 @@ import java.util.Optional;
 public class ISeeLavaClientMod implements ClientModInitializer {
     public static final String ID = "iseelava";
     private static final Identifier TRANSLUCENT_LAVA_RP = Identifier.fromNamespaceAndPath(ID, "translucent_lava");
+
+    // Keybinding used to open the config GUI.
     private static KeyMapping configKey;
 
     @Override
@@ -26,18 +28,18 @@ public class ISeeLavaClientMod implements ClientModInitializer {
         Optional<ModContainer> modContainer = FabricLoader.getInstance().getModContainer(ID);
         modContainer.ifPresent(container -> ResourceLoader.registerBuiltinPack(TRANSLUCENT_LAVA_RP, container, PackActivationType.DEFAULT_ENABLED));
 
-        // Load the config on mod startup
+        // Load configuration values from disk before anything uses them.
         LavaConfig.loadConfig();
 
-        // Register the category for key mappings
+        // Register a custom keybinding category
         KeyMapping.Category category = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(ID, "category"));
 
-        // Register the keybinding with a category
-        configKey = KeyMappingHelper.registerKeyMapping(new KeyMapping("key.iseelava.config", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, category));
+       // Register keybinding (default: K)
+        configKey = KeyMappingHelper.registerKeyMapping(new KeyMapping("key.iseelava.config", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_K, category));
 
         // Register the ClientTickCallback to check key press on each tick
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (configKey.isDown()) {
+            while (configKey.consumeClick()) {
                 Minecraft.getInstance().setScreen(new ModConfigScreen()); // Open config screen
             }
         });
