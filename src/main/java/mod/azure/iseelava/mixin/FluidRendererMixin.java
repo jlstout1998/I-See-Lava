@@ -67,10 +67,9 @@ public class FluidRendererMixin {
             value = "INVOKE",
             target = "Lnet/minecraft/client/renderer/block/FluidRenderer;addFace(" +
                      "Lcom/mojang/blaze3d/vertex/VertexConsumer;" +
-                     "FFFFFFFFFFFFII" + // placeholder for floats/ints
-                     "Z)V"
-        ),
-        index = 22 // index of addBackFace boolean in addFace call
+                     "FFFFFFFFFFFFFFFFFFFFFFFFIIZ" + // 20 floats, 2 ints, 1 boolean
+        ")",
+        index = 22 // last boolean parameter (addBackFace)
     )
     private boolean disableBackFaceForFlowingLava(boolean original) {
         return currentFluid != null && currentFluid.getType().isSame(Fluids.LAVA) && !currentFluid.isSource();
