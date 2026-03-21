@@ -26,7 +26,6 @@ public class ModConfigScreen extends Screen {
             protected void updateMessage() {
                 // Update the opacity in LavaConfig
                 LavaConfig.OPACITY = (float) this.value;
-                LavaConfig.saveConfig(); // Save to config file
 
                 // Trigger a screen update to re-render lava with new opacity
                 updateLavaOpacity();
