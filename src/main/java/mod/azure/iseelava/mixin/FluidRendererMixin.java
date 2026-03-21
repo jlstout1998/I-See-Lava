@@ -50,20 +50,20 @@ public class FluidRendererMixin {
             return color;
         }
 
+        /*
         // Dampen Bright Sides
-        float opacity = LavaConfig.OPACITY * 2;
+        float opacity = LavaConfig.OPACITY;
         int r = (int)(ARGB.red(color) * opacity);
         int g = (int)(ARGB.green(color) * opacity);
         int b = (int)(ARGB.blue(color) * opacity);
         int a = Math.clamp((int)(ARGB.alpha(color) * opacity), 0, 255);
         
         return ARGB.color(a, r, g, b);
+        */
 
-        /*
         // Orginal Vanilla Code Look
-        int alpha = Math.clamp((int)(ARGB.alpha(color) * LavaConfig.OPACITY), 0, 255);
+        int alpha = Math.clamp((int)(ARGB.alpha(color) * LavaConfig.OPACITY * 2), 0, 255);
 
         return ARGB.color(alpha, color & 0xFFFFFF);
-        */
     }
 }
