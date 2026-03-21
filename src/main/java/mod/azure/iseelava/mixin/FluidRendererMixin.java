@@ -51,7 +51,7 @@ public class FluidRendererMixin {
         }
 
         // Dampen Bright Sides
-        float opacity = LavaConfig.OPACITY;
+        float opacity = LavaConfig.OPACITY * 2;
         int r = (int)(ARGB.red(color) * opacity);
         int g = (int)(ARGB.green(color) * opacity);
         int b = (int)(ARGB.blue(color) * opacity);
