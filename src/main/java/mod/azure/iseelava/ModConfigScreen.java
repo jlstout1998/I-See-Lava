@@ -4,6 +4,7 @@ import mod.azure.iseelava.LavaConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractSliderButton;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -41,6 +42,8 @@ public class ModConfigScreen extends Screen {
             }
         };
         this.addRenderableWidget(opacitySlider);
+        
+        this.addRenderableWidget(Button.builder(Component.translatable("gui.done"), button -> this.onClose()).bounds(centerX - 100, centerY + 20, 200, 20).build());
     }
 
     // This function forces the lava opacity to be re-rendered immediately
@@ -57,11 +60,12 @@ public class ModConfigScreen extends Screen {
     public void extractRenderState(GuiGraphicsExtractor matrices, int mouseX, int mouseY, float delta) {
         this.extractBackground(matrices, mouseX, mouseY, delta);
         super.extractRenderState(matrices, mouseX, mouseY, delta);
-        opacitySlider.extractRenderState(matrices, mouseX, mouseY, delta);
+        // opacitySlider.extractRenderState(matrices, mouseX, mouseY, delta);
     }
 
     @Override
     public void onClose() {
-        super.onClose();
+        Minecraft.getInstance().setScreen(null);
+        super.onClose(); // OPTIONAL
     }
 }
