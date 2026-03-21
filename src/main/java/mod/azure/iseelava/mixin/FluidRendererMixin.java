@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FluidRenderer.class)
 public class FluidRendererMixin {
-    private static final ThreadLocal<FluidState> capturedFluid = new ThreadLocal<>();
+    private FluidState capturedFluid;
 
     @Inject(
         method = "tesselate",
@@ -30,7 +30,7 @@ public class FluidRendererMixin {
         FluidState fluidState,
         CallbackInfo ci
     ) {
-        capturedFluid.set(fluidState);
+        this.capturedFluid = fluidState;
     }
 
     @ModifyArg(
@@ -43,10 +43,9 @@ public class FluidRendererMixin {
     )
     private int modifyLavaColor(int color) {
 
-        FluidState fluidState = capturedFluid.get();
+        FluidState fluidState = this.capturedFluid;
 
         // Only modify lava fluids
-        if (fluidState == null || !fluidState.isSourceOfType(Fluids.LAVA)) {
         if (fluidState == null || !fluidState.getType().isSame(Fluids.LAVA)) {
             return color;
         }
