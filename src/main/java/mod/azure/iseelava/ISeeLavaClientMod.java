@@ -2,6 +2,7 @@ package mod.azure.iseelava;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
@@ -34,13 +35,12 @@ public class ISeeLavaClientMod implements ClientModInitializer {
 
         // Register the keybinding with a category
         configKey = KeyMappingHelper.registerKeyMapping(new KeyMapping("key.iseelava.config", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, category));
-    }
 
-    // Check for key press on every tick
-    @Override
-    public void tick() {
-        if (configKey.isDown()) {
-            Minecraft.getInstance().setScreen(new ModConfigScreen()); // Open config screen
-        }
+        // Register the ClientTickCallback to check key press on each tick
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (configKey.isDown()) {
+                Minecraft.getInstance().setScreen(new ModConfigScreen()); // Open config screen
+            }
+        })
     }
 }
