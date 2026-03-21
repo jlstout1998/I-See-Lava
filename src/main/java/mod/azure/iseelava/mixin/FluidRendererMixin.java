@@ -16,6 +16,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FluidRenderer.class)
 public class FluidRendererMixin {
+    /**
+     * Stores the current FluidState being rendered.
+     *
+     * NOTE:
+     * This relies on the fact that tesselate() is currently called synchronously.
+     * If Mojang parallelizes chunk rendering further, this could become unsafe.
+     */
     private FluidState capturedFluid;
 
     @Inject(
@@ -45,23 +52,13 @@ public class FluidRendererMixin {
 
         FluidState fluidState = this.capturedFluid;
 
-        // Only modify lava fluids
+        // Only apply effect to lava
         if (fluidState == null || !fluidState.getType().isSame(Fluids.LAVA)) {
             return color;
         }
 
-        /*
-        // Dampen Bright Sides
-        float opacity = LavaConfig.OPACITY;
-        int r = (int)(ARGB.red(color) * opacity);
-        int g = (int)(ARGB.green(color) * opacity);
-        int b = (int)(ARGB.blue(color) * opacity);
-        int a = Math.clamp((int)(ARGB.alpha(color) * opacity), 0, 255);
-        
-        return ARGB.color(a, r, g, b);
-        */
-
-        // Orginal Vanilla Code Look
+        // Scale alpha channel based on config.
+        // Keeps RGB untouched to preserve vanilla lighting/color behavior.
         int alpha = Math.clamp((int)(ARGB.alpha(color) * LavaConfig.OPACITY), 0, 255);
 
         return ARGB.color(alpha, color & 0xFFFFFF);
