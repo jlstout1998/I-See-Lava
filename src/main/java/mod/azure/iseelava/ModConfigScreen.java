@@ -29,8 +29,8 @@ public class ModConfigScreen extends Screen {
                 LavaConfig.saveConfig(); // Save to config file
 
                 // Trigger a screen update to re-render lava with new opacity
-                ModConfigScreen.this.extractBackground(); // Re-render background
-                ModConfigScreen.this.extractRenderState(); // Re-render the screen
+                ModConfigScreen.this.extractBackground(this.getGuiGraphics(), 0, 0, 1.0f);
+                ModConfigScreen.this.extractRenderState(this.getGuiGraphics(), 0, 0, 1.0f);
             }
 
             @Override
@@ -39,8 +39,8 @@ public class ModConfigScreen extends Screen {
                 LavaConfig.saveConfig(); // Save the updated value
 
                 // Trigger a screen update to re-render lava with new opacity
-                ModConfigScreen.this.extractBackground(); // Re-render background
-                ModConfigScreen.this.extractRenderState(); // Re-render the screen
+                ModConfigScreen.this.extractBackground(this.getGuiGraphics(), 0, 0, 1.0f);
+                ModConfigScreen.this.extractRenderState(this.getGuiGraphics(), 0, 0, 1.0f);
             }
         };
         this.addRenderableWidget(opacitySlider);
