@@ -58,9 +58,7 @@ public class FluidRendererMixin {
         return ARGB.color(alpha, color & 0xFFFFFF);
     }
 
-    /**
-     * Disable back face rendering for flowing lava only.
-     */
+    /*
     @ModifyArg(
         method = "tesselate",
         at = @At(
@@ -74,5 +72,7 @@ public class FluidRendererMixin {
     )
     private boolean disableBackFaceForFlowingLava(boolean original) {
         return currentFluid != null && currentFluid.getType().isSame(Fluids.LAVA) && !currentFluid.isSource();
+    */
+        
     }
 }
