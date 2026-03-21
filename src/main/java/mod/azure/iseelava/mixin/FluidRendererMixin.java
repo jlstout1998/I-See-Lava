@@ -54,4 +54,26 @@ public class FluidRendererMixin {
 
         return ARGB.color(alpha, color & 0xFFFFFF);
     }
+    
+    @ModifyArg(
+        method = "tesselate",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/client/renderer/block/FluidRenderer;addFace(" +
+                     "Lcom/mojang/blaze3d/vertex/VertexConsumer;" +
+                     "FFFFFFFFFFFFII" + // placeholder for floats/ints
+                     "Z)V"
+        ),
+        index = 22 // index of addBackFace boolean in addFace call
+    )
+    private boolean disableBackFaceForFlowingLava(boolean original) {
+        FluidState fluidState = capturedFluid.get();
+
+        // Only disable back faces for flowing lava
+        if (fluidState != null && fluidState.getType().isSame(Fluids.LAVA)) {
+            return !(fluidState.getFlowX() == 0.0 && fluidState.getFlowZ() == 0.0);
+        }
+
+        return original; // leave other fluids unchanged
+    }
 }
