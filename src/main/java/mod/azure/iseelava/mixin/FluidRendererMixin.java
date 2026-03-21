@@ -49,10 +49,20 @@ public class FluidRendererMixin {
         if (fluidState == null || !fluidState.getType().isSame(Fluids.LAVA)) {
             return color;
         }
+        
+        float opacity = LavaConfig.OPACITY;
+        int r = (int)(ARGB.red(color) * opacity);
+        int g = (int)(ARGB.green(color) * opacity);
+        int b = (int)(ARGB.blue(color) * opacity);
+        int a = Math.clamp((int)(ARGB.alpha(color) * opacity), 0, 255);
+        
+        return ARGB.color(a, r, g, b);
 
+        /*
         int alpha = Math.clamp((int)(ARGB.alpha(color) * LavaConfig.OPACITY), 0, 255);
 
         return ARGB.color(alpha, color & 0xFFFFFF);
+        */
 
     /*
     @ModifyArg(
