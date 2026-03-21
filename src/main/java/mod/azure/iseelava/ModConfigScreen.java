@@ -29,8 +29,7 @@ public class ModConfigScreen extends Screen {
                 LavaConfig.saveConfig(); // Save to config file
 
                 // Trigger a screen update to re-render lava with new opacity
-                ModConfigScreen.this.extractBackground(this.getGuiGraphics(), 0, 0, 1.0f);
-                ModConfigScreen.this.extractRenderState(this.getGuiGraphics(), 0, 0, 1.0f);
+                updateLavaOpacity();
             }
 
             @Override
@@ -39,11 +38,21 @@ public class ModConfigScreen extends Screen {
                 LavaConfig.saveConfig(); // Save the updated value
 
                 // Trigger a screen update to re-render lava with new opacity
-                ModConfigScreen.this.extractBackground(this.getGuiGraphics(), 0, 0, 1.0f);
-                ModConfigScreen.this.extractRenderState(this.getGuiGraphics(), 0, 0, 1.0f);
+                updateLavaOpacity();
             }
         };
         this.addRenderableWidget(opacitySlider);
+    }
+
+    // This function forces the lava opacity to be re-rendered immediately
+    private void updateLavaOpacity() {
+        // We need to notify the game to update the lava rendering based on the new opacity value.
+        // Trigger a re-rendering of the fluid (lava) state with the updated opacity value.
+        
+        // Since the opacity is applied to lava through the `FluidRendererMixin`, we can simply mark it as dirty
+        // or trigger a refresh in the game world (this is more efficient than resetting the entire screen).
+        Minecraft.getInstance().gameRenderer.getMainRenderTarget().setDirty(); // Mark the render target as dirty
+        Minecraft.getInstance().levelRenderer.allChanged(); // Notify that something changed in the world
     }
 
     @Override
