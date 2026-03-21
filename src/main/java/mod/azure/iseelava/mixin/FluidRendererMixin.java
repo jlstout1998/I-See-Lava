@@ -68,7 +68,8 @@ public class FluidRendererMixin {
             target = "Lnet/minecraft/client/renderer/block/FluidRenderer;addFace(" +
                      "Lcom/mojang/blaze3d/vertex/VertexConsumer;" +
                      "FFFFFFFFFFFFFFFFFFFFFFFFIIZ" + // 20 floats, 2 ints, 1 boolean
-        ")",
+                     ")"
+        ),
         index = 22 // last boolean parameter (addBackFace)
     )
     private boolean disableBackFaceForFlowingLava(boolean original) {
