@@ -31,21 +31,9 @@ public class ModConfigScreen extends Screen {
         // Slider value is normalized (0.0–1.0)
         opacitySlider = new AbstractSliderButton(sliderX, sliderY, sliderWidth, 20, Component.translatable("Opacity"), LavaConfig.OPACITY) {
             @Override
-            protected void updateMessage() {
-                // Called continuously while dragging.
-                LavaConfig.OPACITY = (float) this.value;
-
-                // Force renderer update so lava changes instantly.
-                updateLavaOpacity();
-            }
-
-            @Override
             protected void applyValue() {
                 // Called when the slider is released.
                 LavaConfig.OPACITY = (float) this.value;
-
-                // Persist change to disk.
-                LavaConfig.saveConfig();
 
                 // Force renderer update so lava changes instantly.
                 updateLavaOpacity();
@@ -78,6 +66,8 @@ public class ModConfigScreen extends Screen {
 
     @Override
     public void onClose() {
+        // Save config when the config screen is closed.
+        LavaConfig.saveConfig();
         super.onClose();
     }
 }
