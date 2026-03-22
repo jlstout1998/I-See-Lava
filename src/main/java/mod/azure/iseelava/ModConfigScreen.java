@@ -19,11 +19,17 @@ public class ModConfigScreen extends Screen {
 
     @Override
     protected void init() {
+        // Center of the screen
         int centerX = this.width / 2;
         int centerY = this.height / 2;
 
+        // Create Slider
+        int sliderWidth = 200;
+        int sliderX = centerX - (sliderWidth / 2);
+        int sliderY = centerY - 20;
+        
         // Slider value is normalized (0.0–1.0)
-        opacitySlider = new AbstractSliderButton(centerX - 100, centerY - 20, 200, 20, Component.translatable("Opacity"), LavaConfig.OPACITY) {
+        opacitySlider = new AbstractSliderButton(sliderX, sliderY, sliderWidth, 20, Component.translatable("Opacity"), LavaConfig.OPACITY) {
             @Override
             protected void updateMessage() {
                 // Called continuously while dragging.
@@ -47,8 +53,13 @@ public class ModConfigScreen extends Screen {
         };
         this.addRenderableWidget(opacitySlider);
 
+        // Create Button
+        int buttonWidth = 200;
+        int buttonX = centerX - (buttonWidth / 2);
+        int buttonY = centerY + 20;
+        
         // Standard "Done" button to close the screen.
-        this.addRenderableWidget(Button.builder(Component.translatable("gui.done"), button -> this.onClose()).bounds(centerX - 100, centerY + 20, 200, 20).build());
+        this.addRenderableWidget(Button.builder(Component.translatable("gui.done"), button -> this.onClose()).bounds(buttonX, buttonY, buttonWidth, 20).build());
     }
     
     /**
