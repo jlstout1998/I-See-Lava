@@ -10,7 +10,10 @@ import java.io.IOException;
 
 public class LavaConfig {
     // 0.0 = fully invisible, 1.0 = fully opaque
-    public static float OPACITY = 0.55f;
+    public static final float DEFAULT_OPACITY = 0.55f;
+
+    // Mutable runtime value
+    public static float OPACITY = DEFAULT_OPACITY;
 
     // Config file stored in the standard Fabric config directory.
     private static final File CONFIG_FILE = new File("config/iseelava_config.json");
@@ -28,6 +31,8 @@ public class LavaConfig {
             JsonObject json = GSON.fromJson(reader, JsonObject.class);
             if (json != null && json.has("opacity")) {
                 OPACITY = json.get("opacity").getAsFloat();
+            } else {
+                OPACITY = DEFAULT_OPACITY;
             }
         } catch (IOException e) {
             // Log instead of crashing — config errors should not break the game.
