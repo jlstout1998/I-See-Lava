@@ -1,14 +1,14 @@
 pluginManagement {
     repositories {
+        maven {
+            name = "CaffeineMC"
+            url = uri("https://maven.caffeinemc.net/releases")
+        }
         gradlePluginPortal()
         mavenCentral()
         maven {
             name = "Fabric"
             url = uri("https://maven.fabricmc.net/")
-        }
-        maven {
-            name = "CaffeineMC"
-            url = uri("https://maven.caffeinemc.net/releases")
         }
     }
 }
