@@ -9,7 +9,7 @@ repositories {
         url = uri("https://maven.caffeinemc.net/releases")
     }
 	maven {
-		url = "https://api.modrinth.com/maven"
+		url = uri("https://api.modrinth.com/maven")
 	}
 }
 
