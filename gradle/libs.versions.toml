@@ -15,7 +15,7 @@ fabric = "0.144.0+26.1"     # Fabric API Version
 fabricLoader = "0.18.4"     # Fabric Loader Version
 
 # Sodium
-sodium = "mc26.1-0.8.7"     # Sodium Version
+sodium = "0.8.7+mc26.1"     # Sodium Version
 
 [libraries]
 # Dependencies in the build.gradle
