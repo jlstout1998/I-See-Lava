@@ -1,12 +1,12 @@
 [versions]
 # Mod Metadata
-modVersion = "1.2.0"
+modVersion = "1.2.1"
 mavenGroup = "mod.azure.iseelava"
 modName = "iseelava"
 
 # Toolchain and Environment
 java = "25"
-minecraft = "26.1-rc-2"
+minecraft = "26.1"
 pack = "[84, 0]"            # Resource Pack Version
 
 # Fabric Components
