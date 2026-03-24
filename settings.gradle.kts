@@ -7,8 +7,8 @@ pluginManagement {
             url = uri("https://maven.fabricmc.net/")
         }
         maven {
-            name = "Modrinth"
-            url = uri("https://api.modrinth.com/maven")
+            name = "CaffeineMC"
+            url = uri("https://maven.caffeinemc.net/releases")
         }
     }
 }
