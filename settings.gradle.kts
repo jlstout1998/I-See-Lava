@@ -1,9 +1,5 @@
 pluginManagement {
     repositories {
-        maven {
-            name = "CaffeineMC"
-            url = uri("https://maven.caffeinemc.net/releases")
-        }
         gradlePluginPortal()
         mavenCentral()
         maven {
