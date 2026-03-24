@@ -3,6 +3,16 @@ plugins {
 	alias(libs.plugins.loomID) // Fabric Loom
 }
 
+repositories {
+    maven {
+        name = "CaffeineMC"
+        url = uri("https://maven.caffeinemc.net/releases")
+    }
+	maven {
+		url = "https://api.modrinth.com/maven"
+	}
+}
+
 // Project identification pulled from gradle/libs.versions.toml
 group = libs.versions.mavenGroup.get()
 version = libs.versions.modVersion.get()
@@ -19,6 +29,8 @@ java {
 		vendor.set(JvmVendorSpec.ADOPTIUM)
 	}
 }
+
+
 
 // Essential Minecraft and Fabric dependencies
 dependencies {
