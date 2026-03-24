@@ -60,6 +60,8 @@ public class FluidRendererMixin {
         // Keeps RGB untouched to preserve vanilla lighting/color behavior.
         int alpha = Math.clamp((int)(ARGB.alpha(color) * LavaConfig.OPACITY), 0, 255);
 
+        System.out.println("LAVA MIXIN HIT"); // Sodium Test
+        
         return ARGB.color(alpha, color & 0xFFFFFF);
     }
 }
