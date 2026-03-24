@@ -14,11 +14,15 @@ loom = "1.15.5"             # Fabric Loom Version
 fabric = "0.144.0+26.1"     # Fabric API Version
 fabricLoader = "0.18.4"     # Fabric Loader Version
 
+# Sodium
+sodium = "mc26.1-0.8.7"     # Sodium Version
+
 [libraries]
 # Dependencies in the build.gradle
 minecraft = { group = "com.mojang", name = "minecraft", version.ref = "minecraft" }
 fabric-loader = { group = "net.fabricmc", name = "fabric-loader", version.ref = "fabricLoader" }
 fabric-api = { group = "net.fabricmc.fabric-api", name = "fabric-api", version.ref = "fabric" }
+sodium = { group =  "maven.modrinth", name = "sodium", version.ref = "sodium" }
 
 [plugins]
 # Plugin in the build.gradle
