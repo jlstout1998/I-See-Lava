@@ -22,7 +22,7 @@ sodium = "0.8.7+mc26.1"     # Sodium Version
 minecraft = { group = "com.mojang", name = "minecraft", version.ref = "minecraft" }
 fabric-loader = { group = "net.fabricmc", name = "fabric-loader", version.ref = "fabricLoader" }
 fabric-api = { group = "net.fabricmc.fabric-api", name = "fabric-api", version.ref = "fabric" }
-sodium = { group =  "net.caffeinemc", name = "sodium", version.ref = "sodium" }
+sodium = { group =  "net.caffeinemc", name = "sodium-fabric", version.ref = "sodium" }
 
 [plugins]
 # Plugin in the build.gradle
