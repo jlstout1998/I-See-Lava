@@ -23,7 +23,8 @@
 		]
 	},
 	"mixins": [
-		"iseelava.mixins.json"
+		"iseelava.mixins.json",
+		"iseelava.sodium.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=${loaderVersion}",
