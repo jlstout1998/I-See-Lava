@@ -25,7 +25,7 @@ dependencies {
 	minecraft(libs.minecraft)
 	implementation(libs.fabric.loader)
 	implementation(libs.fabric.api)
-	CompileOnly(libs.sodium)
+	compileOnly(libs.sodium)
 }
 
 // Replaces placeholders in fabric.mod.json and pack.mcmeta with variables defined in gradle/libs.versions.toml
