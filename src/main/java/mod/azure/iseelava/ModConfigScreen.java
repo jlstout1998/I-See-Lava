@@ -60,7 +60,11 @@ public class ModConfigScreen extends Screen {
      * This is required because fluid rendering is cached per chunk rebuild.
      */
     private void updateLavaOpacity() {
-        Minecraft.getInstance().levelRenderer.allChanged();
+        // Minecraft.getInstance().levelRenderer.allChanged();
+        if (Minecraft.getInstance().level != null && Minecraft.getInstance().levelRenderer != null) {
+            Minecraft.getInstance().levelRenderer.allChanged();
+            Minecraft.getInstance().levelRenderer.needsUpdate();
+        }
     }
 
     @Override
