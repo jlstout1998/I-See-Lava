@@ -4,7 +4,7 @@ import mod.azure.iseelava.LavaConfig;
 import net.caffeinemc.mods.sodium.api.util.ColorARGB;
 import net.caffeinemc.mods.sodium.client.model.color.ColorProvider;
 import net.caffeinemc.mods.sodium.client.model.light.LightPipeline;
-import net.caffeinemc.mods.sodium.client.model.quad.ModelQuadFacing;
+import net.caffeinemc.mods.sodium.client.model.quad.properties.ModelQuadFacing;
 import net.caffeinemc.mods.sodium.client.model.quad.ModelQuadViewMutable;
 import net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.DefaultFluidRenderer;
 import net.caffeinemc.mods.sodium.client.world.LevelSlice;
