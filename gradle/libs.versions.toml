@@ -11,8 +11,8 @@ pack = "[84, 0]"            # Resource Pack Version
 
 # Fabric Components
 loom = "1.15.5"             # Fabric Loom Version
-fabric = "0.144.0+26.1"    # Fabric API Version
-fabricLoader = "0.18.4"     # Fabric Loader Version
+fabric = "0.144.3+26.1"     # Fabric API Version
+fabricLoader = "0.18.5"     # Fabric Loader Version
 
 [libraries]
 # Dependencies in the build.gradle
