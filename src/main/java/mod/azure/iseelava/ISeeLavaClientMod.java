@@ -40,8 +40,8 @@ public class ISeeLavaClientMod implements ClientModInitializer {
         // Register the ClientTickCallback to check key press on each tick
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (configKey.consumeClick()) {
-                if (Minecraft.getInstance().screen == null) {
-                    Minecraft.getInstance().setScreen(new ModConfigScreen());
+                if (Minecraft.getInstance().gui.screen == null) {
+                    Minecraft.getInstance().gui.setScreen(new ModConfigScreen());
                 }
             }
         });
