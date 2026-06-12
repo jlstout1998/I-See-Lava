@@ -61,13 +61,15 @@ public class ModConfigScreen extends Screen {
      */
     private void updateLavaOpacity() {
         // Minecraft.getInstance().levelRenderer.allChanged();
-        //** Not Working **//
-        Minecraft.getInstance().levelRenderer.invalidateCompiledGeometry(
-            Minecraft.getInstance().level,
-            Minecraft.getInstance().options,
-            Minecraft.getInstance().gameRenderer.mainCamera(),
-            Minecraft.getInstance().getBlockColors()
-        );
+        //** Not Working and Testing Here **//
+        if (Minecraft.getInstance().level != null) {
+            Minecraft.getInstance().levelRenderer.invalidateCompiledGeometry(
+                Minecraft.getInstance().level,
+                Minecraft.getInstance().options,
+                Minecraft.getInstance().gameRenderer.mainCamera(),
+                Minecraft.getInstance().getBlockColors()
+            );
+        }
     }
 
     @Override
