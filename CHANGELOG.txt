@@ -1,4 +1,3 @@
 v.1.2.1
 
-- Updated minecraft version for use on 26.1
-- 26.1 Snapshot 7 changed transluceny, replaced ChunkSectionLayerMap.putFluids command with unneeded fallback code
+- Updated minecraft version for use on 26.2
