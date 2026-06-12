@@ -64,9 +64,8 @@ public class ModConfigScreen extends Screen {
     private void updateLavaOpacity() {
         // Minecraft.getInstance().levelRenderer.allChanged();
         //** Not Working and Testing Here **//
-        if (Minecraft.getInstance().level != null) {     
-            Minecraft.getInstance().gameRenderer.gameRenderState().levelRenderState.reset();
-            
+        /*
+        if (Minecraft.getInstance().level != null) {          
             Minecraft.getInstance().levelRenderer.invalidateCompiledGeometry(
                 Minecraft.getInstance().level,
                 Minecraft.getInstance().options,
@@ -74,6 +73,7 @@ public class ModConfigScreen extends Screen {
                 Minecraft.getInstance().getBlockColors()
             );
         }
+        */
     }
 
     @Override
