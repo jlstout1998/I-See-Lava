@@ -62,13 +62,13 @@ public class ModConfigScreen extends Screen {
     private void updateLavaOpacity() {
         Minecraft.getInstance().levelRenderer.allChanged();
     }
-
+/*
     @Override
     public void extractRenderState(GuiGraphicsExtractor matrices, int mouseX, int mouseY, float delta) {
         this.extractBackground(matrices, mouseX, mouseY, delta);
         super.extractRenderState(matrices, mouseX, mouseY, delta);
     }
-
+*/
     @Override
     public void onClose() {
         // Save config when the config screen is closed.
