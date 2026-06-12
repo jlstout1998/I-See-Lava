@@ -6,8 +6,9 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.core.SectionPos;
 import net.minecraft.network.chat.Component;
+
+import net.minecraft.client.renderer.state.level.LevelRenderState;
 
 public class ModConfigScreen extends Screen {
     // Slider controlling lava opacity in real-time.
@@ -63,8 +64,8 @@ public class ModConfigScreen extends Screen {
     private void updateLavaOpacity() {
         // Minecraft.getInstance().levelRenderer.allChanged();
         //** Not Working and Testing Here **//
-        if (Minecraft.getInstance().level != null) {
-            Minecraft.getInstance().levelRenderer.resetLevelRenderData(); // important: clears old GPU + dispatcher
+        if (Minecraft.getInstance().level != null) {     
+            Minecraft.getInstance().gameRenderer.gameRenderState().levelRenderState.reset();
             
             Minecraft.getInstance().levelRenderer.invalidateCompiledGeometry(
                 Minecraft.getInstance().level,
@@ -72,13 +73,6 @@ public class ModConfigScreen extends Screen {
                 Minecraft.getInstance().gameRenderer.mainCamera(),
                 Minecraft.getInstance().getBlockColors()
             );
-            
-            // IMPORTANT: force render pipeline to re-seed section compilation
-            Minecraft.getInstance().levelRenderer.clearVisibleSections();
-            
-            // Nudge camera to trigger section selection/rebuild path
-            var camera = Minecraft.getInstance().gameRenderer.mainCamera();
-            Minecraft.getInstance().levelRenderer.viewArea().repositionCamera(SectionPos.of(camera.position()));
         }
     }
 
