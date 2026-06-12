@@ -1,6 +1,4 @@
-v.1.2.1
+v.1.2.2
 
 - Updated minecraft version for use on 26.1
-- 26.1 Snapshot 7 changed transluceny, replaced ChunkSectionLayerMap.putFluids command with unneeded fallback code
-- Menu version now allows the user to adjust the amount of transluceny
-- Added support with Sodium
+- Fixed crash when Menu Background Blur not set to Off
