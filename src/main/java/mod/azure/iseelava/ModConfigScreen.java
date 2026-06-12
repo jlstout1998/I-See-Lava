@@ -64,7 +64,7 @@ public class ModConfigScreen extends Screen {
         Minecraft.getInstance().levelRenderer.invalidateCompiledGeometry(
             Minecraft.getInstance().level,
             Minecraft.getInstance().options,
-            Minecraft.getInstance().gameRenderer.getMainCamera(),
+            Minecraft.getInstance().gameRenderer.mainCamera(),
             Minecraft.getInstance().getBlockColors()
         );
     }
