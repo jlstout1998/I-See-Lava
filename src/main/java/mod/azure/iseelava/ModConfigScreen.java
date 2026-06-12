@@ -61,6 +61,7 @@ public class ModConfigScreen extends Screen {
      */
     private void updateLavaOpacity() {
         // Minecraft.getInstance().levelRenderer.allChanged();
+        //** Not Working **//
         Minecraft.getInstance().levelRenderer.invalidateCompiledGeometry(
             Minecraft.getInstance().level,
             Minecraft.getInstance().options,
