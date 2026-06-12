@@ -6,16 +6,16 @@ modName = "iseelava"
 
 # Toolchain and Environment
 java = "25"
-minecraft = "26.1.2"
-pack = "[84, 0]"            # Resource Pack Version
+minecraft = "26.2-rc-1"
+pack = "[88, 0]"            # Resource Pack Version
 
 # Fabric Components
-loom = "1.16.1"             # Fabric Loom Version
-fabric = "0.148.2+26.1.2"   # Fabric API Version
-fabricLoader = "0.19.2"     # Fabric Loader Version
+loom = "1.17.11"            # Fabric Loom Version
+fabric = "0.152.0+26.2"     # Fabric API Version
+fabricLoader = "0.19.3"     # Fabric Loader Version
 
 # Sodium
-sodium = "0.8.12-beta.2+mc26.1.2"  # Sodium Version
+sodium = "0.9.0-beta.2+mc26.2-rc-1"  # Sodium Version
 
 [libraries]
 # Dependencies in the build.gradle
