@@ -12,6 +12,7 @@ import mod.azure.iseelava.LavaRenderReload;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.state.level.LevelRenderState;
 import net.minecraft.client.renderer.state.level.SectionUpdateRenderState;
+import net.minecraft.client.renderer.state.GameRenderState;
 
 public class ModConfigScreen extends Screen {
     // Slider controlling lava opacity in real-time.
@@ -77,7 +78,7 @@ public class ModConfigScreen extends Screen {
         // 2. Rebuild visible section tracking (forces rescheduling next frame)
         Minecraft.getInstance().levelRenderer.clearVisibleSections();
         // 3. Force chunk section recompilation scheduling
-        for (SectionUpdateRenderState state : Minecraft.getInstance().levelRenderState.sectionUpdateRenderStates) {
+        for (SectionUpdateRenderState state : Minecraft.getInstance().gameRenderer.gameRenderState().levelRenderState.sectionUpdateRenderStates) {
             if (Minecraft.getInstance().levelRenderer.visibleSections() != null) {
                 for (var section : Minecraft.getInstance().levelRenderer.visibleSections()) {
                     section.compileAsync(state.region());
