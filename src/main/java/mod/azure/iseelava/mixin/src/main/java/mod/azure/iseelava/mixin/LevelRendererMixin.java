@@ -1,4 +1,4 @@
-package mod.azure.iseelava;
+package mod.azure.iseelava.mixin;
 
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.Minecraft;
