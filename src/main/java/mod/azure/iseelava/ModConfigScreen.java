@@ -6,9 +6,8 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
-
 import net.minecraft.client.renderer.extract.LevelExtractor;
+import net.minecraft.network.chat.Component;
 
 public class ModConfigScreen extends Screen {
     // Slider controlling lava opacity in real-time.
@@ -62,7 +61,6 @@ public class ModConfigScreen extends Screen {
      * This is required because fluid rendering is cached per chunk rebuild.
      */
     private void updateLavaOpacity() {
-        // Minecraft.getInstance().levelRenderer.allChanged();
         Minecraft.getInstance().levelExtractor.allChanged();
     }
 
