@@ -63,17 +63,39 @@ public class ModConfigScreen extends Screen {
      */
     private void updateLavaOpacity() {
         // Minecraft.getInstance().levelRenderer.allChanged();
-        //** Not Working and Testing Here **//
-        /*
-        if (Minecraft.getInstance().level != null) {          
-            Minecraft.getInstance().levelRenderer.invalidateCompiledGeometry(
-                Minecraft.getInstance().level,
-                Minecraft.getInstance().options,
-                Minecraft.getInstance().gameRenderer.mainCamera(),
-                Minecraft.getInstance().getBlockColors()
+        // ATTEMPT TO REWRITE allChanged()
+        if (this.level != null) {
+            this.level.clearTintCaches();
+            Options options = this.minecraft.options;
+            boolean ambientOcclusion = options.ambientOcclusion().get();
+            boolean cutoutLeaves = options.cutoutLeaves().get();
+            ModelManager modelManager = this.minecraft.getModelManager();
+            SectionCompiler sectionCompiler = new SectionCompiler(
+                ambientOcclusion,
+                cutoutLeaves,
+                modelManager.getBlockStateModelSet(),
+                modelManager.getFluidStateModelSet(),
+                this.minecraft.getBlockColors()
             );
+            if (this.sectionRenderDispatcher == null) {
+                this.sectionRenderDispatcher = new SectionRenderDispatcher(Util.backgroundExecutor(), this.renderBuffers, sectionCompiler, this.sectionOcclusionGraph::schedulePropagationFrom);
+            } else {
+                this.sectionRenderDispatcher.setCompiler(sectionCompiler);
+            }
+            
+            this.cloudRenderer.markForRebuild();
+            LeavesBlock.setCutoutLeaves(cutoutLeaves);
+            if (this.viewArea != null) {
+                this.viewArea.releaseAllBuffers();
+            }
+            
+            this.sectionRenderDispatcher.clearCompileQueue();
+            this.viewArea = new ViewArea(this.sectionRenderDispatcher, this.level.getMinY(), this.level.getMaxY(), this.level.getMinSectionY(), this.level.getMaxSectionY(), options.getEffectiveRenderDistance(), this.sectionOcclusionGraph);
+            this.sectionOcclusionGraph.waitAndReset(this.viewArea);
+            this.clearVisibleSections();
+            Camera camera = this.minecraft.gameRenderer.mainCamera();
+            this.viewArea.repositionCamera(SectionPos.of(camera.position()));
         }
-        */
     }
 
     @Override
