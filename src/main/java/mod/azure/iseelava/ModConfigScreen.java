@@ -77,12 +77,12 @@ public class ModConfigScreen extends Screen {
         // 3. Force chunk section recompilation scheduling
         if (Minecraft.getInstance().levelRenderer.visibleSections() != null) {
             for (var section : Minecraft.getInstance().levelRenderer.visibleSections()) {
-                section.compileAsync(section.region());
+                section.compileAsync(state.region());
             }
         }
         if (Minecraft.getInstance().levelRenderer.nearbyVisibleSections() != null) {
             for (var section : Minecraft.getInstance().levelRenderer.nearbyVisibleSections()) {
-                section.compileAsync(section.region());
+                section.compileAsync(state.region());
             }
         }
         // 4. Force GPU upload pass (ensures no delay waiting for natural flush)
