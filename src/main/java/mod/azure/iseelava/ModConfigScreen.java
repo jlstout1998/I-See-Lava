@@ -73,10 +73,12 @@ public class ModConfigScreen extends Screen {
         }
         */
         if (Minecraft.getInstance().levelRenderer == null) return;
+        
         // 1. Force a render pipeline reset (this is safe and exists in your version)
         Minecraft.getInstance().levelRenderer.endFrame();
         // 2. Rebuild visible section tracking (forces rescheduling next frame)
         Minecraft.getInstance().levelRenderer.clearVisibleSections();
+        /*
         // 3. Force chunk section recompilation scheduling
         for (SectionUpdateRenderState state : Minecraft.getInstance().gameRenderer.gameRenderState().levelRenderState.sectionUpdateRenderStates) {
             if (Minecraft.getInstance().levelRenderer.visibleSections() != null) {
@@ -90,6 +92,13 @@ public class ModConfigScreen extends Screen {
                 }
             }
         }
+        */
+        Minecraft.getInstance().levelRenderer.sectionOcclusionGraph().invalidate();
+        // 4. Force render state refresh (THIS is what you're missing)
+Minecraft.getInstance().gameRenderer.gameRenderState().levelRenderState.shouldResetSkyRenderer = true;
+Minecraft.getInstance().gameRenderer.gameRenderState().levelRenderState.shouldResetChunkLayerSampler = true;
+Minecraft.getInstance().gameRenderer.gameRenderState().levelRenderState.shouldShowEntityOutlines = Minecraft.getInstance().gameRenderer.gameRenderState().levelRenderState.shouldShowEntityOutlines;
+
         // 4. Force GPU upload pass (ensures no delay waiting for natural flush)
         if (Minecraft.getInstance().levelRenderer.sectionRenderDispatcher() != null) {
             Minecraft.getInstance().levelRenderer.sectionRenderDispatcher().uploadTerrainBuffersToGpu();
