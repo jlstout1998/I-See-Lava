@@ -5,7 +5,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.renderer.chunk.SectionCompiler;
 import net.minecraft.client.renderer.chunk.SectionRenderDispatcher;
-import net.minecraft.client.renderer.chunk.ViewArea;
+import net.minecraft.client.renderer.ViewArea;
+import net.minecraft.client.renderer.RenderBuffers;
+import net.minecraft.client.renderer.SectionOcclusionGraph;
+import net.minecraft.client.renderer.CloudRenderer;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.core.SectionPos;
 import net.minecraft.util.Util;
@@ -72,6 +75,6 @@ public abstract class LevelRendererMixin implements LavaRenderReload {
         this.sectionOcclusionGraph.waitAndReset(this.viewArea);
         this.clearVisibleSections();
         Camera camera = Minecraft.getInstance().gameRenderer.mainCamera();
-        this.viewArea.repositionCamera(SectionPos.of(camera.getPosition()));
+        this.viewArea.repositionCamera(SectionPos.of(camera.position()));
     }
 }
