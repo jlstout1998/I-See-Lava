@@ -1,3 +1,4 @@
 v.1.2.2
 
 - Updated minecraft version for use on 26.2
+- Updated allChanged() which was moved to LevelExtractor
