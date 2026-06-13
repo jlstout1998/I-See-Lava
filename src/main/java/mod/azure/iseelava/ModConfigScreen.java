@@ -8,11 +8,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-import mod.azure.iseelava.LavaRenderReload;
-import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.state.level.LevelRenderState;
-import net.minecraft.client.renderer.state.level.SectionUpdateRenderState;
-import net.minecraft.client.renderer.state.GameRenderState;
+import net.minecraft.client.renderer.extract.LevelExtractor;
 
 public class ModConfigScreen extends Screen {
     // Slider controlling lava opacity in real-time.
@@ -67,42 +63,7 @@ public class ModConfigScreen extends Screen {
      */
     private void updateLavaOpacity() {
         // Minecraft.getInstance().levelRenderer.allChanged();
-        /* // ATTEMPT TO REWRITE allChanged()
-        if (Minecraft.getInstance().levelRenderer instanceof LavaRenderReload reload) {
-            reload.iseelava$reloadLavaRender();
-        }
-        */
-        if (Minecraft.getInstance().levelRenderer == null) return;
-        
-        // 1. Force a render pipeline reset (this is safe and exists in your version)
-        Minecraft.getInstance().levelRenderer.endFrame();
-        // 2. Rebuild visible section tracking (forces rescheduling next frame)
-        Minecraft.getInstance().levelRenderer.clearVisibleSections();
-        /*
-        // 3. Force chunk section recompilation scheduling
-        for (SectionUpdateRenderState state : Minecraft.getInstance().gameRenderer.gameRenderState().levelRenderState.sectionUpdateRenderStates) {
-            if (Minecraft.getInstance().levelRenderer.visibleSections() != null) {
-                for (var section : Minecraft.getInstance().levelRenderer.visibleSections()) {
-                    section.compileAsync(state.region());
-                }
-            }
-            if (Minecraft.getInstance().levelRenderer.nearbyVisibleSections() != null) {
-                for (var section : Minecraft.getInstance().levelRenderer.nearbyVisibleSections()) {
-                    section.compileAsync(state.region());
-                }
-            }
-        }
-        */
-        Minecraft.getInstance().levelRenderer.sectionOcclusionGraph().invalidate();
-        // 4. Force render state refresh (THIS is what you're missing)
-Minecraft.getInstance().gameRenderer.gameRenderState().levelRenderState.shouldResetSkyRenderer = true;
-Minecraft.getInstance().gameRenderer.gameRenderState().levelRenderState.shouldResetChunkLayerSampler = true;
-Minecraft.getInstance().gameRenderer.gameRenderState().levelRenderState.shouldShowEntityOutlines = Minecraft.getInstance().gameRenderer.gameRenderState().levelRenderState.shouldShowEntityOutlines;
-
-        // 4. Force GPU upload pass (ensures no delay waiting for natural flush)
-        if (Minecraft.getInstance().levelRenderer.sectionRenderDispatcher() != null) {
-            Minecraft.getInstance().levelRenderer.sectionRenderDispatcher().uploadTerrainBuffersToGpu();
-        }
+        Minecraft.getInstance().levelExtractor.allChanged();
     }
 
     @Override
