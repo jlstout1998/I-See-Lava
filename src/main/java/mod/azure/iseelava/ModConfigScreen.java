@@ -8,7 +8,19 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-import net.minecraft.client.renderer.state.level.LevelRenderState;
+import net.minecraft.world.level.Level; // level
+import net.minecraft.client.Options; // Options
+import net.minecraft.client.resources.model.ModelManager; // ModelManager
+import net.minecraft.client.renderer.chunk.SectionCompiler; // SectionCompiler
+import net.minecraft.client.renderer.chunk.SectionRenderDispatcher; // sectionRenderDispatcher
+import net.minecraft.client.renderer.RenderBuffers; // renderBuffers
+import net.minecraft.util.Util; // Util
+import net.minecraft.client.renderer.SectionOcclusionGraph; // sectionOcclusionGraph
+import net.minecraft.client.renderer.CloudRenderer; // cloudRenderer
+import net.minecraft.world.level.block.LeavesBlock; // LeavesBlock
+import net.minecraft.client.renderer.ViewArea; // viewArea
+import net.minecraft.client.Camera; // Camera
+import net.minecraft.core.SectionPos; // SectionPos
 
 public class ModConfigScreen extends Screen {
     // Slider controlling lava opacity in real-time.
