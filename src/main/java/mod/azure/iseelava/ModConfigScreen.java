@@ -11,6 +11,7 @@ import net.minecraft.network.chat.Component;
 import mod.azure.iseelava.LavaRenderReload;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.state.level.LevelRenderState;
+import net.minecraft.client.renderer.state.level.SectionUpdateRenderState;
 
 public class ModConfigScreen extends Screen {
     // Slider controlling lava opacity in real-time.
