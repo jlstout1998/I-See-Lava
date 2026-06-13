@@ -8,6 +8,8 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
+
+import net.minecraft.client.renderer.LevelRenderer; // allChanged
 import net.minecraft.world.level.Level; // level
 import net.minecraft.client.Options; // Options
 import net.minecraft.client.resources.model.ModelManager; // ModelManager
