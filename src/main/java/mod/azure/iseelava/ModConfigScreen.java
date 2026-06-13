@@ -8,21 +8,19 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-
-import net.minecraft.client.renderer.LevelRenderer; // allChanged
-import net.minecraft.world.level.Level; // level
-import net.minecraft.client.Options; // Options
-import net.minecraft.client.resources.model.ModelManager; // ModelManager
-import net.minecraft.client.renderer.chunk.SectionCompiler; // SectionCompiler
-import net.minecraft.client.renderer.chunk.SectionRenderDispatcher; // sectionRenderDispatcher
-import net.minecraft.client.renderer.RenderBuffers; // renderBuffers
-import net.minecraft.util.Util; // Util
-import net.minecraft.client.renderer.SectionOcclusionGraph; // sectionOcclusionGraph
-import net.minecraft.client.renderer.CloudRenderer; // cloudRenderer
-import net.minecraft.world.level.block.LeavesBlock; // LeavesBlock
-import net.minecraft.client.renderer.ViewArea; // viewArea
-import net.minecraft.client.Camera; // Camera
-import net.minecraft.core.SectionPos; // SectionPos
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.Options;
+import net.minecraft.client.renderer.chunk.SectionCompiler;
+import net.minecraft.client.renderer.chunk.SectionRenderDispatcher;
+import net.minecraft.client.renderer.chunk.ViewArea;
+import net.minecraft.client.resources.model.ModelManager;
+import net.minecraft.core.SectionPos;
+import net.minecraft.util.Util;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.client.Camera;
+import net.minecraft.client.multiplayer.ClientLevel;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 
 public class ModConfigScreen extends Screen {
     // Slider controlling lava opacity in real-time.
@@ -78,37 +76,8 @@ public class ModConfigScreen extends Screen {
     private void updateLavaOpacity() {
         // Minecraft.getInstance().levelRenderer.allChanged();
         // ATTEMPT TO REWRITE allChanged()
-        if (this.level != null) {
-            this.level.clearTintCaches();
-            Options options = this.minecraft.options;
-            boolean ambientOcclusion = options.ambientOcclusion().get();
-            boolean cutoutLeaves = options.cutoutLeaves().get();
-            ModelManager modelManager = this.minecraft.getModelManager();
-            SectionCompiler sectionCompiler = new SectionCompiler(
-                ambientOcclusion,
-                cutoutLeaves,
-                modelManager.getBlockStateModelSet(),
-                modelManager.getFluidStateModelSet(),
-                this.minecraft.getBlockColors()
-            );
-            if (this.sectionRenderDispatcher == null) {
-                this.sectionRenderDispatcher = new SectionRenderDispatcher(Util.backgroundExecutor(), this.renderBuffers, sectionCompiler, this.sectionOcclusionGraph::schedulePropagationFrom);
-            } else {
-                this.sectionRenderDispatcher.setCompiler(sectionCompiler);
-            }
-            
-            this.cloudRenderer.markForRebuild();
-            LeavesBlock.setCutoutLeaves(cutoutLeaves);
-            if (this.viewArea != null) {
-                this.viewArea.releaseAllBuffers();
-            }
-            
-            this.sectionRenderDispatcher.clearCompileQueue();
-            this.viewArea = new ViewArea(this.sectionRenderDispatcher, this.level.getMinY(), this.level.getMaxY(), this.level.getMinSectionY(), this.level.getMaxSectionY(), options.getEffectiveRenderDistance(), this.sectionOcclusionGraph);
-            this.sectionOcclusionGraph.waitAndReset(this.viewArea);
-            this.clearVisibleSections();
-            Camera camera = this.minecraft.gameRenderer.mainCamera();
-            this.viewArea.repositionCamera(SectionPos.of(camera.position()));
+        if (Minecraft.getInstance().levelRenderer instanceof LavaRenderReload reload) {
+            reload.iseelava$reloadLavaRender();
         }
     }
 
@@ -117,5 +86,66 @@ public class ModConfigScreen extends Screen {
         // Save config when the config screen is closed.
         LavaConfig.saveConfig();
         super.onClose();
+    }
+}
+
+@Mixin(LevelRenderer.class)
+public abstract class LevelRendererMixin implements LavaRenderReload {
+
+    @Shadow private ClientLevel level;
+    @Shadow private SectionRenderDispatcher sectionRenderDispatcher;
+    @Shadow private RenderBuffers renderBuffers;
+    @Shadow private SectionOcclusionGraph sectionOcclusionGraph;
+    @Shadow private CloudRenderer cloudRenderer;
+    @Shadow private ViewArea viewArea;
+
+    @Shadow protected abstract void clearVisibleSections();
+
+    @Override
+    public void iseelava$reloadLavaRender() {
+        if (this.level == null) return;
+        this.level.clearTintCaches();
+        Options options = Minecraft.getInstance().options;
+        boolean ambientOcclusion = options.ambientOcclusion().get();
+        boolean cutoutLeaves = options.cutoutLeaves().get();
+        ModelManager modelManager = Minecraft.getInstance().getModelManager();
+        SectionCompiler sectionCompiler = new SectionCompiler(
+                ambientOcclusion,
+                cutoutLeaves,
+                modelManager.getBlockStateModelSet(),
+                modelManager.getFluidStateModelSet(),
+                Minecraft.getInstance().getBlockColors()
+        );
+        if (this.sectionRenderDispatcher == null) {
+            this.sectionRenderDispatcher = new SectionRenderDispatcher(
+                    Util.backgroundExecutor(),
+                    this.renderBuffers,
+                    sectionCompiler,
+                    this.sectionOcclusionGraph::schedulePropagationFrom
+            );
+        } else {
+            this.sectionRenderDispatcher.setCompiler(sectionCompiler);
+        }
+
+        this.cloudRenderer.markForRebuild();
+        LeavesBlock.setCutoutLeaves(cutoutLeaves);
+        if (this.viewArea != null) {
+            this.viewArea.releaseAllBuffers();
+        }
+
+        this.sectionRenderDispatcher.clearCompileQueue();
+        this.viewArea = new ViewArea(
+                this.sectionRenderDispatcher,
+                this.level.getMinY(),
+                this.level.getMaxY(),
+                this.level.getMinSectionY(),
+                this.level.getMaxSectionY(),
+                options.getEffectiveRenderDistance(),
+                this.sectionOcclusionGraph
+        );
+        this.sectionOcclusionGraph.waitAndReset(this.viewArea);
+        this.clearVisibleSections();
+        Camera camera = Minecraft.getInstance().gameRenderer.mainCamera();
+        this.viewArea.repositionCamera(SectionPos.of(camera.getPosition()));
     }
 }
