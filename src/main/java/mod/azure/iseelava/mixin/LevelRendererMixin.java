@@ -1,5 +1,7 @@
 package mod.azure.iseelava.mixin;
 
+import mod.azure.iseelava.LavaRenderReload;
+
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
