@@ -8,7 +8,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-import mod.azure.iseelava.mixin.LevelRendererMixin;
+import mod.azure.iseelava.LavaRenderReload;
 
 public class ModConfigScreen extends Screen {
     // Slider controlling lava opacity in real-time.
