@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
 import mod.azure.iseelava.LavaRenderReload;
+import net.minecraft.client.renderer.LevelRenderer;
 
 public class ModConfigScreen extends Screen {
     // Slider controlling lava opacity in real-time.
@@ -63,9 +64,30 @@ public class ModConfigScreen extends Screen {
      */
     private void updateLavaOpacity() {
         // Minecraft.getInstance().levelRenderer.allChanged();
-        // ATTEMPT TO REWRITE allChanged()
+        /* // ATTEMPT TO REWRITE allChanged()
         if (Minecraft.getInstance().levelRenderer instanceof LavaRenderReload reload) {
             reload.iseelava$reloadLavaRender();
+        }
+        */
+        if (Minecraft.getInstance().levelRenderer == null) return;
+        // 1. Force a render pipeline reset (this is safe and exists in your version)
+        Minecraft.getInstance().levelRenderer.endFrame();
+        // 2. Rebuild visible section tracking (forces rescheduling next frame)
+        Minecraft.getInstance().levelRenderer.clearVisibleSections();
+        // 3. Force chunk section recompilation scheduling
+        if (Minecraft.getInstance().levelRenderer.visibleSections() != null) {
+            for (var section : Minecraft.getInstance().levelRenderer.visibleSections()) {
+                section.compileAsync(section.getRegion());
+            }
+        }
+        if (Minecraft.getInstance().levelRenderer.nearbyVisibleSections() != null) {
+            for (var section : Minecraft.getInstance().levelRenderer.nearbyVisibleSections()) {
+                section.compileAsync(section.getRegion());
+            }
+        }
+        // 4. Force GPU upload pass (ensures no delay waiting for natural flush)
+        if (Minecraft.getInstance().levelRenderer.sectionRenderDispatcher() != null) {
+            Minecraft.getInstance().levelRenderer.sectionRenderDispatcher().uploadTerrainBuffersToGpu();
         }
     }
 
