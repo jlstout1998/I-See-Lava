@@ -1,3 +1,20 @@
+package mod.azure.iseelava.mixin;
+
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.Options;
+import net.minecraft.client.renderer.chunk.SectionCompiler;
+import net.minecraft.client.renderer.chunk.SectionRenderDispatcher;
+import net.minecraft.client.renderer.chunk.ViewArea;
+import net.minecraft.client.resources.model.ModelManager;
+import net.minecraft.core.SectionPos;
+import net.minecraft.util.Util;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.client.Camera;
+import net.minecraft.client.multiplayer.ClientLevel;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+
 @Mixin(LevelRenderer.class)
 public abstract class LevelRendererMixin implements LavaRenderReload {
 
