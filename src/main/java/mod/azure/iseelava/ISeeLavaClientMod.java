@@ -11,7 +11,6 @@ import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.resources.Identifier;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.Optional;
 
@@ -35,7 +34,7 @@ public class ISeeLavaClientMod implements ClientModInitializer {
         KeyMapping.Category category = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(ID, "category"));
 
        // Register keybinding (default: K)
-        configKey = KeyMappingHelper.registerKeyMapping(new KeyMapping("key.iseelava.config", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_K, category));
+        configKey = KeyMappingHelper.registerKeyMapping(new KeyMapping("key.iseelava.config", InputConstants.Type.KEYBOARD, InputConstants.KEY_K, category));
 
         // Register the ClientTickCallback to check key press on each tick
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
