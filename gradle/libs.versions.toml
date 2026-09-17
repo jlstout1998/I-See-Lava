@@ -1,18 +1,18 @@
 [versions]
 # Mod Metadata
-modVersion = "1.2.3"
+modVersion = "1.2.4"
 mavenGroup = "mod.azure.iseelava"
 modName = "iseelava"
 
 # Toolchain and Environment
 java = "25"
-minecraft = "26.3-pre-1"
+minecraft = "26.3"
 pack = "[97, 1]"            # Resource Pack Version
 
 # Fabric Components
-loom = "1.17.20"            # Fabric Loom Version
-fabric = "0.159.1+26.3"     # Fabric API Version
-fabricLoader = "0.19.3"     # Fabric Loader Version
+loom = "1.18.2"            # Fabric Loom Version
+fabric = "0.160.7+26.3"     # Fabric API Version
+fabricLoader = "0.19.5"     # Fabric Loader Version
 
 [libraries]
 # Dependencies in the build.gradle
