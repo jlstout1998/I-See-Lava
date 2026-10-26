@@ -19,7 +19,7 @@ public class LavaConfig {
     public static volatile float OPACITY = DEFAULT_OPACITY;
 
     // Config file stored in the standard Fabric config directory.
-    private static final Path CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("iseelava_config.json");
+    private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("iseelava_config.json");
     
     private static final Gson GSON = new Gson();
 
@@ -28,9 +28,9 @@ public class LavaConfig {
      * If the file does not exist or is malformed, defaults are preserved.
      */
     public static void loadConfig() {
-        if (!Files.exist(CONFIG_FILE)) return;
+        if (!Files.exist(CONFIG_PATH)) return;
         
-        try (Reader reader = Files.newBufferedReader(CONFIG_FILE)) {
+        try (Reader reader = Files.newBufferedReader(CONFIG_PATH)) {
             JsonObject json = GSON.fromJson(reader, JsonObject.class);
             if (json != null && json.has("opacity")) {
                 float value = json.get("opacity").getAsFloat();
@@ -54,15 +54,15 @@ public class LavaConfig {
         json.addProperty("opacity", OPACITY);
 
         try {
-            Files.createDirectories(CONFIG_FILE.getParent());
-            Path temp = CONFIG_FILE.resolveSibling(CONFIG_FILE.getFileName() + ".tmp");
+            Files.createDirectories(CONFIG_PATH.getParent());
+            Path temp = CONFIG_PATH.resolveSibling(CONFIG_PATH.getFileName() + ".tmp");
             try (Writer writer = Files.newBufferedWriter(temp)) {
                 GSON.toJson(json, writer);
             }
             try {
-                Files.move(temp, CONFIG_FILE, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+                Files.move(temp, CONFIG_PATH, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
             } catch (IOException atomicFailed) {
-                Files.move(temp, CONFIG_FILE, StandardCopyOption.REPLACE_EXISTING);
+                Files.move(temp, CONFIG_PATH, StandardCopyOption.REPLACE_EXISTING);
             }
         } catch (IOException e) {
             e.printStackTrace();
