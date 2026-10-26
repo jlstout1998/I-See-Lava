@@ -15,7 +15,7 @@ public class LavaConfig {
     // 0.0 = fully invisible, 1.0 = fully opaque
     public static final float DEFAULT_OPACITY = 0.55f;
 
-    // Mutable runtime value
+    // Written on the render thread, read on chunk-meshing worker threads.
     public static volatile float OPACITY = DEFAULT_OPACITY;
 
     // Config file stored in the standard Fabric config directory.
@@ -39,7 +39,7 @@ public class LavaConfig {
                 OPACITY = DEFAULT_OPACITY;
             }
         } catch (IOException | RuntimeException e) {
-            // Log instead of crashing — config errors should not break the game.
+            // Syntax errors, wrong types and IO errors must never crash the game.
             e.printStackTrace();
             OPACITY = DEFAULT_OPACITY;
         }
@@ -47,6 +47,7 @@ public class LavaConfig {
 
     /**
      * Saves current configuration values to disk.
+     * Writes to a temp file first so a crash mid-write can't leave a truncated config.
      */
     public static void saveConfig() {
         // Ensure config directory exists before writing.        
