@@ -8,7 +8,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.resources.Identifier;
 
@@ -39,8 +38,8 @@ public class ISeeLavaClientMod implements ClientModInitializer {
         // Register the ClientTickCallback to check key press on each tick
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (configKey.consumeClick()) {
-                if (Minecraft.getInstance().gui.screen() == null) {
-                    Minecraft.getInstance().gui.setScreen(new ModConfigScreen());
+                if (client.gui.screen() == null) {
+                    client.gui.setScreen(new ModConfigScreen());
                 }
             }
         });
