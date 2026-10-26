@@ -1,65 +1,32 @@
 package mod.azure.iseelava.mixin;
 
 import mod.azure.iseelava.LavaConfig;
-import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.client.renderer.block.FluidRenderer;
-import net.minecraft.core.BlockPos;
 import net.minecraft.util.ARGB;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 
 @Mixin(FluidRenderer.class)
 public class FluidRendererMixin {
-    /**
-     * Stores the current FluidState being rendered.
-     */
-    private static final ThreadLocal<FluidState> capturedFluid = ThreadLocal.withInitial(() -> null);
-    // private FluidState capturedFluid;
-
-    @Inject(
+    @WrapOperation(
         method = "tesselate",
-        at = @At("HEAD")
+        at = @At("HEAD", value = "INVOKE", target = "Lnet/minecraft/util/ARGB;scaleRGB(IF)I")
     )
-    private void captureFluidState(
-        BlockAndTintGetter level,
-        BlockPos pos,
-        FluidRenderer.Output output,
-        BlockState blockState,
-        FluidState fluidState,
-        CallbackInfo ci
-    ) {
-        capturedFluid.set(fluidState);
-        // this.capturedFluid = fluidState;
-    }
-
-    @ModifyArg(
-        method = "tesselate",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/util/ARGB;scaleRGB(IF)I"
-        ),
-        index = 0
-    )
-    private int modifyLavaColor(int color) {
-
-        FluidState fluidState = capturedFluid.get();
-        // FluidState fluidState = this.capturedFluid;
-
-        // Only apply effect to lava
-        if (fluidState == null || !fluidState.getType().isSame(Fluids.LAVA)) {
-            return color;
+    private int iseelava$modifyLavaColor(int color, float scale, Operation<Integer> original, @Local(argsOnly = true) FluidState fluidState) {
+        float opacity = LavaConfig.OPACITY;
+ 
+        // Skip all work for fully opaque lava and for every other fluid.
+        if (opacity < 1f && fluidState.getType().isSame(Fluids.LAVA)) {
+            // Keeps RGB untouched to preserve vanilla lighting/color behavior.
+            int alpha = Math.clamp((int) (ARGB.alpha(color) * opacity), 0, 255);
+            color = ARGB.color(alpha, color & 0xFFFFFF);
         }
-
-        // Scale alpha channel based on config.
-        // Keeps RGB untouched to preserve vanilla lighting/color behavior.
-        int alpha = Math.clamp((int)(ARGB.alpha(color) * LavaConfig.OPACITY), 0, 255);
-        
-        return ARGB.color(alpha, color & 0xFFFFFF);
+ 
+        return original.call(color, scale);
     }
 }
