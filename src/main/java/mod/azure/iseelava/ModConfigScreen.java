@@ -72,7 +72,7 @@ public class ModConfigScreen extends Screen {
      * Forces the world renderer to refresh.
      * This is required because fluid rendering is cached per chunk rebuild.
      */
-    private flushRebuild() {
+    private void flushRebuild() {
         if (dirty) {
             dirty = false;
             Minecraft.getInstance().levelExtractor.allChanged();
