@@ -13,6 +13,9 @@ public class ModConfigScreen extends Screen {
     // Slider controlling lava opacity in real-time.
     private AbstractSliderButton opacitySlider;
 
+    // Set when the opacity changed and chunks need to be rebuilt.
+    private boolean dirty;
+
     public ModConfigScreen() {
         // Uses translation key (better for localization later)
         super(Component.translatable("Lava Config"));
@@ -30,11 +33,14 @@ public class ModConfigScreen extends Screen {
         int sliderY = centerY - 20;
         
         // Slider value is normalized (0.0–1.0)
-        opacitySlider = new AbstractSliderButton(sliderX, sliderY, sliderWidth, 20, Component.translatable("Opacity"), LavaConfig.OPACITY) {
+        opacitySlider = new AbstractSliderButton(sliderX, sliderY, sliderWidth, 20, Component.empty(), LavaConfig.OPACITY) {
+            {
+                updateMessage();
+            }
             @Override
             protected void updateMessage() {
                 // Called continuously while dragging.
-                LavaConfig.OPACITY = (float) this.value;
+                setMessage(Component.translatable("Opacity: " + Math.round(this.value * 100) + "%"));
             }
             @Override
             protected void applyValue() {
@@ -42,7 +48,7 @@ public class ModConfigScreen extends Screen {
                 LavaConfig.OPACITY = (float) this.value;
 
                 // Force renderer update so lava changes instantly.
-                updateLavaOpacity();
+                dirty = true;
             }
         };
         this.addRenderableWidget(opacitySlider);
@@ -55,17 +61,27 @@ public class ModConfigScreen extends Screen {
         // Standard "Done" button to close the screen.
         this.addRenderableWidget(Button.builder(Component.translatable("gui.done"), button -> this.onClose()).bounds(buttonX, buttonY, buttonWidth, 20).build());
     }
-    
+
+    @Override
+    public void tick() {
+        super.tick();
+        flushRebuild();
+    }
+
     /**
      * Forces the world renderer to refresh.
      * This is required because fluid rendering is cached per chunk rebuild.
      */
-    private void updateLavaOpacity() {
-        Minecraft.getInstance().levelExtractor.allChanged();
+    private flushRebuild() {
+        if (dirty) {
+            dirty = false;
+            Minecraft.getInstance().levelExtractor.allChanged();
+        }
     }
 
     @Override
     public void onClose() {
+        flushRebuild();
         // Save config when the config screen is closed.
         LavaConfig.saveConfig();
         super.onClose();
