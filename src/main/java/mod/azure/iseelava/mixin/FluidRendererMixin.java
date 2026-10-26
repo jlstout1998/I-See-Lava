@@ -13,6 +13,9 @@ import com.llamalad7.mixinextras.sugar.Local;
 
 @Mixin(FluidRenderer.class)
 public class FluidRendererMixin {
+    /**
+     * Wraps the color scaling call in tesselate and rewrites the alpha for lava.
+     */
     @WrapOperation(
         method = "tesselate",
         at = @At(value = "INVOKE", target = "Lnet/minecraft/util/ARGB;scaleRGB(IF)I")
