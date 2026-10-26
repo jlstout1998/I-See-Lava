@@ -15,7 +15,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 public class FluidRendererMixin {
     @WrapOperation(
         method = "tesselate",
-        at = @At("HEAD", value = "INVOKE", target = "Lnet/minecraft/util/ARGB;scaleRGB(IF)I")
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/util/ARGB;scaleRGB(IF)I")
     )
     private int iseelava$modifyLavaColor(int color, float scale, Operation<Integer> original, @Local(argsOnly = true) FluidState fluidState) {
         float opacity = LavaConfig.OPACITY;
