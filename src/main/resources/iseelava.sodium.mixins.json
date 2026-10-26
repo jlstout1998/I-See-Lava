@@ -1,12 +1,12 @@
 {
   "required": false,
   "package": "mod.azure.iseelava.mixin.sodium",
+  "plugin": "mod.azure.iseelava.SodiumMixinPlugin",
   "compatibilityLevel": "JAVA_25",
-  "mixins": [
-    "SodiumFluidRendererMixin",
-    "DefaultFluidRendererAccessor"
+  "mixins": [],
+  "client": [
+    "SodiumFluidRendererMixin"
   ],
-  "client": [],
   "injectors": {
     "defaultRequire": 1
   }
