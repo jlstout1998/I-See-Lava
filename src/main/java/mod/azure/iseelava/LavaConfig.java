@@ -28,7 +28,7 @@ public class LavaConfig {
      * If the file does not exist or is malformed, defaults are preserved.
      */
     public static void loadConfig() {
-        if (!Files.exist(CONFIG_PATH)) return;
+        if (!Files.exists(CONFIG_PATH)) return;
         
         try (Reader reader = Files.newBufferedReader(CONFIG_PATH)) {
             JsonObject json = GSON.fromJson(reader, JsonObject.class);
