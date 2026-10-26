@@ -10,8 +10,6 @@ import java.util.Set;
 
 /**
  * Only applies the Sodium mixins when Sodium is actually installed.
- * Must live outside the mixin package (mod.azure.iseelava.mixin...), since
- * classes in a mixin package can't be loaded directly.
  */
 public class SodiumMixinPlugin implements IMixinConfigPlugin {
     private boolean sodiumLoaded;
