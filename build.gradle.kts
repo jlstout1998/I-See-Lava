@@ -8,8 +8,16 @@ repositories {
         name = "CaffeineMC"
         url = uri("https://maven.caffeinemc.net/releases")
     }
-	maven {
-		url = uri("https://api.modrinth.com/maven")
+	exclusiveContent {
+		forRepository {
+			maven {
+				name = "Modrinth"
+				url = uri("https://api.modrinth.com/maven")
+			}
+		}
+		filter {
+			includeGroup("maven.modrinth")
+		}
 	}
 }
 
@@ -30,8 +38,6 @@ java {
 	}
 }
 
-
-
 // Essential Minecraft and Fabric dependencies
 dependencies {
 	minecraft(libs.minecraft)
@@ -43,7 +49,7 @@ dependencies {
 // Replaces placeholders in fabric.mod.json and pack.mcmeta with variables defined in gradle/libs.versions.toml
 tasks.processResources {
 	val modProperties = mapOf(
-		"version" to version,
+		"version" to project.version.toString(),
 		"minecraftVersion" to libs.versions.minecraft.get(),
 		"loaderVersion" to libs.versions.fabricLoader.get(),
 		"javaVersion" to libs.versions.java.get().toInt(),
@@ -67,8 +73,6 @@ tasks.withType<JavaCompile>().configureEach {
 // Rename the LICENSE file in the final JAR
 tasks.jar {
 	from("LICENSE") {
-		rename { "${it}_${archiveBaseName.get()}" }
+		rename { "${it}_${archivesName.get()}" }
 	}
 }
-
-
