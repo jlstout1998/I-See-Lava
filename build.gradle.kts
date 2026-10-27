@@ -71,6 +71,7 @@ tasks.withType<JavaCompile>().configureEach {
 }
 
 // Rename the LICENSE file in the final JAR
+val archivesName = base.archivesName
 tasks.jar {
 	from("LICENSE") {
 		rename { "${it}_${archivesName.get()}" }
