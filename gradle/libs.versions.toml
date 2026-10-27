@@ -10,9 +10,9 @@ minecraft = "26.3"
 pack = "[97, 1]"            # Resource Pack Version
 
 # Fabric Components
-loom = "1.18.2"             # Fabric Loom Version
-fabric = "0.160.7+26.3"     # Fabric API Version
-fabricLoader = "0.19.5"     # Fabric Loader Version
+loom = "1.19.3"             # Fabric Loom Version
+fabric = "0.165.0+26.3"     # Fabric API Version
+fabricLoader = "0.20.1"     # Fabric Loader Version
 
 # Sodium
 sodium = "0.9.2+mc26.3"     # Sodium Version
