@@ -1,3 +1,4 @@
 v.1.2.4
 
+- Updated code for better handling
 - Updated minecraft version for use on 26.3
